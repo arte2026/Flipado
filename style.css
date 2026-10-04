@@ -34,13 +34,13 @@
             width: 100vw;
             background: linear-gradient(
     90deg,
-    #EADDFF 25%,
-    #F3EDF7 25%,
-    #F3EDF7 50%,
-    #EADDFF 50%,
-    #EADDFF 75%,
-    #F3EDF7 75%,
-    #F3EDF7 
+    #FEF7FF 25%,
+    #fff 25%,
+    #fff 50%,
+    #FEF7FF 50%,
+    #FEF7FF 75%,
+    #fff 75%,
+    #fff 
   );
   background-size: 120px 120px;
 
@@ -90,17 +90,17 @@
             max-width: 420px;
             background-color: var(--md-sys-color-surface);
             border-radius: 24px;
-            padding: 22px 0px;
+            padding: 20px 0px;
             box-shadow: var(--md-elevation-1);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             text-align: center;
             align-items: center;
         }
 
         /* Header / Branding */
-        .header h1 {
+        header h1 {
             font-size: 36px;
             font-weight: 700;
             color: var(--md-sys-color-primary);
@@ -108,7 +108,7 @@
             margin-bottom: 8px;
         }
 
-        .header p {
+        header p {
             font-size: 14px;
             color: var(--md-sys-color-on-surface-variant);
         }
@@ -121,7 +121,7 @@
             gap: 8px;
             border: none;
             border-radius: 100px; /* Fully rounded for Material 3 */
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Offside', sans-serif;
             font-weight: 500;
             font-size: 16px;
             cursor: pointer;
@@ -135,8 +135,8 @@
 
         /* Prominent Action Button */
         .btn-primary {
-            background-color: var(--md-sys-color-primary);
-            color: var(--md-sys-color-on-primary);
+            background-color: #82E8D8;
+            color: black;
             padding: 16px 24px;
             width: 75%;
             box-shadow: var(--md-elevation-1);
@@ -251,7 +251,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(7, 1fr); /* Changed from 5 to 7 */
     grid-template-rows: repeat(7, 1fr);    /* Changed from 5 to 7 */
-    
+    padding: 2px;
     gap: 3px;
     background: #c4aeff;
     touch-action: none;
@@ -291,19 +291,21 @@ h1 {
 /* Front is white (0 degrees) */
 .tile-front {
     background: white;
-    border-radius: 22px;
+    border-radius: 24px;
+    
 }
 
 /* Back is black (Starts already rotated 180deg so it faces away) */
 .tile-back {
     background: #222;
     transform: rotateY(180deg); 
-    border-radius: 12px;
+    border-radius: 6px;
+    box-shadow: var(--md-elevation-1);
 }
 
 /* Ensure outer tiles are transparent */
 .tile.outer .tile-face {
-    background: transparent;
+    background: #0000001a;
 }
 
 /* Target the inner div for the path trace animation */
@@ -319,12 +321,6 @@ h1 {
     background: transparent;
 }
 
-.tile.path-trace {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    transform: scale(0.4);
-    transition: transform 100ms ease, background-color 100ms ease;
-}
 
 /* Highlights tiles that were flipped during the current swipe */
 .tile.highlight .tile-face {
@@ -383,7 +379,7 @@ h1 {
 
 .btn-back {
     
-    background-color: var(--md-sys-color-primary-container);
+    background-color: #eaddff;
     color: var(--md-sys-color-on-primary-container);
     border-radius: 20px;
     width: 48px;
@@ -403,14 +399,14 @@ h1 {
     margin-bottom: 24px;
     /* 5 buttons (44px) + 4 gaps (12px) = 268px. 
        Setting max-width forces a wrap after 5 items. */
-    width: 95vw;
+    width: 94vw;
     max-width: 410px;
 }
 
 /* Base button styling */
 .level-btn {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 36px;
     border: none;
     border-radius: 8px;
     background-color: #e0e0e0;
@@ -448,4 +444,83 @@ h1 {
     text-align: center;
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Blocked tile indicators */
+.tile.blocked {
+    position: relative;
+    cursor: not-allowed;
+}
+
+/* Create the Red X */
+.tile.blocked::before,
+.tile.blocked::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 45%;
+    width: 10%;
+    height: 60%;
+    background-color: #F44336; /* Red color matching the image */
+    border-radius: 2px;
+    z-index: 5;
+}
+
+.tile.blocked::before {
+    transform: rotate(45deg);
+}
+
+.tile.blocked::after {
+    transform: rotate(-45deg);
+}
+
+/* Tutorial modal (opened from the Play Tutorial button) */
+.tutorial-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow-y: auto;
+    background: rgba(29, 27, 32, 0.55);
+    animation: tutorial-fade 160ms ease-out;
+}
+
+/* Without this, display:flex above would override the hidden attribute */
+.tutorial-modal[hidden] {
+    display: none;
+}
+
+.tutorial-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin: auto;
+}
+
+/* The image is 3:5. Width is capped so the image plus the button always fit on screen. */
+.tutorial-img {
+    display: block;
+    width: min(92vw, 400px, calc((100vh - 110px) * 0.6));
+    height: auto;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
+}
+
+.tutorial-close {
+    width: auto;
+    min-width: 160px;
+}
+
+@keyframes tutorial-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tutorial-modal {
+        animation: none;
+    }
 }

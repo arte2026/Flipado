@@ -8,7 +8,7 @@
   <meta name="author" content="Guillermo Rayas Monroy">
     <title>Flip-O Main Menu</title>
 
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
@@ -24,16 +24,16 @@
   </div>
     <div class="menu-container">
         
-        <header class="header">
+        <header>
             <h1>Flip-O</h1>
             <p>Flip the tiles, solve the board.</p>
         </header>
 
         <!-- Main Action -->
-        <a href="puzzle0.html" class="btn btn-primary">
+         <button type="button" id="tutorial-btn" class="btn btn-primary" aria-haspopup="dialog">
             <span class="material-symbols-outlined">school</span>
-            Play Tutorial
-        </a>
+            See Tutorial
+        </button>
 
         <!-- Level Selection -->
         <section class="level-section">
@@ -41,18 +41,27 @@
             <div class="level-grid">
                 
                 <!-- Completed Level -->
-                <button class="btn btn-level" onclick="window.location.href='index.html'">
-                    1
+                <button class="btn btn-level" onclick="window.location.href='puzzle1-1.html'">
+                    1-1
                     <div class="stars">
                         <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        
                     </div>
                 </button>
 
                 <!-- Unlocked Level -->
-                <button class="btn btn-level" onclick="window.location.href='index.html'">
-                    2
+                <button class="btn btn-level" onclick="window.location.href='puzzle1-2.html'">
+                    1-2
+                    <div class="stars">
+                        <span class="material-symbols-outlined">star</span>
+                        <span class="material-symbols-outlined">star</span>
+                        
+                    </div>
+                </button>
+
+                <!-- Locked Levels -->
+                <button class="btn btn-level" onclick="window.location.href='puzzle1-2.html'">
+                    2-1
                     <div class="stars">
                         <span class="material-symbols-outlined">star</span>
                         <span class="material-symbols-outlined">star</span>
@@ -60,7 +69,6 @@
                     </div>
                 </button>
 
-                <!-- Locked Levels -->
                 <button class="btn btn-level locked" disabled>
                     <span class="material-symbols-outlined">lock</span>
                 </button>
@@ -70,10 +78,15 @@
                 <button class="btn btn-level locked" disabled>
                     <span class="material-symbols-outlined">lock</span>
                 </button>
+<button class="btn btn-level locked" disabled>
+                    <span class="material-symbols-outlined">lock</span>
+                </button>
                 <button class="btn btn-level locked" disabled>
                     <span class="material-symbols-outlined">lock</span>
                 </button>
-
+                <button class="btn btn-level locked" disabled>
+                    <span class="material-symbols-outlined">lock</span>
+                </button>
             </div>
         </section>
 
@@ -88,10 +101,132 @@
                 Settings
             </button>
         </div>
-        <p>v. 1.0 | G R Monroy 2026 </p>
+        <p>v. 1.1 | G R Monroy 2026 </p>
+    </div>
+
+<!-- Tutorial: opened by the Play Tutorial button -->
+    <div id="tutorial-modal" class="tutorial-modal" role="dialog" aria-modal="true" aria-label="How to play" hidden>
+        <div class="tutorial-card">
+<svg class="tutorial-img" viewBox="0 0 360 600" role="img" aria-labelledby="tutorial-title">
+<title id="tutorial-title">How to play Flip-O: four rules and a reminder</title>
+<defs><rect id="c14" width="14" height="14" rx="3"/><rect id="c22" width="22" height="22" rx="5"/><rect id="c18" width="18" height="18" rx="4"/></defs>
+<rect width="360" height="600" rx="24" fill="#FEF7FF"/>
+<text x="180" y="46" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="28" font-weight="700" fill="#6750A4">How to play</text>
+<rect x="16" y="70" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="96" r="12" fill="#6750A4"/>
+<text x="38" y="101" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">1</text>
+<text x="58" y="101" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20">Swipe a path</text>
+<text x="24" y="128" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">Drag across touching tiles.</text>
+<text x="24" y="145" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">A path can't cross itself.</text>
+<rect x="238" y="78" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<rect x="16" y="188" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="214" r="12" fill="#6750A4"/>
+<text x="38" y="219" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">2</text>
+<text x="58" y="219" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20">Tiles flip</text>
+<text x="24" y="246" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">Every board tile you touch</text>
+<text x="24" y="263" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">switches color.</text>
+<rect x="238" y="196" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<rect x="16" y="306" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="332" r="12" fill="#6750A4"/>
+<text x="38" y="337" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">3</text>
+<text x="58" y="337" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20">The ring is free</text>
+<text x="24" y="364" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">Dotted tiles around the</text>
+<text x="24" y="381" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">board never flip. Use them</text>
+<text x="24" y="398" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">to travel.</text>
+<rect x="238" y="314" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<rect x="16" y="424" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="450" r="12" fill="#6750A4"/>
+<text x="38" y="455" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">4</text>
+<text x="58" y="455" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20">Make columns match</text>
+<text x="24" y="482" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">You win when every column</text>
+<text x="24" y="499" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">is a single color, black</text>
+<text x="24" y="516" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" fill="#49454F">or white.</text>
+<rect x="238" y="432" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<g fill="none" stroke="#9A8FBD" stroke-width="1" stroke-dasharray="2 2">
+<use href="#c14" x="247" y="84"/>
+<use href="#c14" x="263" y="84"/>
+<use href="#c14" x="279" y="84"/>
+<use href="#c14" x="295" y="84"/>
+<use href="#c14" x="311" y="84"/>
+<use href="#c14" x="247" y="100"/>
+<use href="#c14" x="311" y="100"/>
+<use href="#c14" x="247" y="116"/>
+<use href="#c14" x="311" y="116"/>
+<use href="#c14" x="247" y="132"/>
+<use href="#c14" x="311" y="132"/>
+<use href="#c14" x="247" y="148"/>
+<use href="#c14" x="263" y="148"/>
+<use href="#c14" x="279" y="148"/>
+<use href="#c14" x="295" y="148"/>
+<use href="#c14" x="311" y="148"/>
+</g>
+<use href="#c14" x="263" y="100" fill="#222222"/>
+<use href="#c14" x="279" y="100" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="100" fill="#222222"/>
+<use href="#c14" x="263" y="116" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="279" y="116" fill="#222222"/>
+<use href="#c14" x="295" y="116" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="263" y="132" fill="#222222"/>
+<use href="#c14" x="279" y="132" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="132" fill="#222222"/>
+<polyline points="254,123 270,123 286,123 302,123 318,123" fill="none" stroke="#FFB300" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+<circle cx="254" cy="123" r="4.5" fill="#FEF7FF" stroke="#FFB300" stroke-width="2"/>
+<use href="#c22" x="250" y="204" fill="#222222"/>
+<use href="#c22" x="276" y="204" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c22" x="302" y="204" fill="#222222"/>
+<g fill="none" stroke="#6750A4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="288" y1="232" x2="288" y2="246"/><polyline points="283,241 288,247 293,241"/></g>
+<use href="#c22" x="250" y="254" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c22" x="276" y="254" fill="#222222"/>
+<use href="#c22" x="302" y="254" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<g fill="none" stroke="#9A8FBD" stroke-width="1" stroke-dasharray="2 2">
+<use href="#c14" x="247" y="320"/>
+<use href="#c14" x="263" y="320"/>
+<use href="#c14" x="279" y="320"/>
+<use href="#c14" x="295" y="320"/>
+<use href="#c14" x="311" y="320"/>
+<use href="#c14" x="247" y="336"/>
+<use href="#c14" x="311" y="336"/>
+<use href="#c14" x="247" y="352"/>
+<use href="#c14" x="311" y="352"/>
+<use href="#c14" x="247" y="368"/>
+<use href="#c14" x="311" y="368"/>
+<use href="#c14" x="247" y="384"/>
+<use href="#c14" x="263" y="384"/>
+<use href="#c14" x="279" y="384"/>
+<use href="#c14" x="295" y="384"/>
+<use href="#c14" x="311" y="384"/>
+</g>
+<use href="#c14" x="263" y="336" fill="#222222"/>
+<use href="#c14" x="279" y="336" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="336" fill="#222222"/>
+<use href="#c14" x="263" y="352" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="279" y="352" fill="#222222"/>
+<use href="#c14" x="295" y="352" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="263" y="368" fill="#222222"/>
+<use href="#c14" x="279" y="368" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="368" fill="#222222"/>
+<polyline points="254,327 270,327 286,327 302,327 318,327 318,343 318,359" fill="none" stroke="#FFB300" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+<circle cx="254" cy="327" r="4.5" fill="#FEF7FF" stroke="#FFB300" stroke-width="2"/>
+<circle cx="268" cy="444" r="4.5" fill="#FFB300"/>
+<use href="#c18" x="259" y="455" fill="#222222"/>
+<use href="#c18" x="259" y="476" fill="#222222"/>
+<use href="#c18" x="259" y="497" fill="#222222"/>
+<circle cx="289" cy="444" r="4.5" fill="#FFB300"/>
+<use href="#c18" x="280" y="455" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c18" x="280" y="476" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c18" x="280" y="497" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<circle cx="310" cy="444" r="4.5" fill="#FFB300"/>
+<use href="#c18" x="301" y="455" fill="#222222"/>
+<use href="#c18" x="301" y="476" fill="#222222"/>
+<use href="#c18" x="301" y="497" fill="#222222"/>
+<rect x="16" y="542" width="328" height="44" rx="14" fill="#EADDFF"/>
+<text x="180" y="569" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#21005D">One stroke per try. Not solved? It resets.</text>
+</svg>
+            <button type="button" id="tutorial-close" class="btn btn-primary tutorial-close">Got it</button>
+        </div>
     </div>
 
 <script src="script.js" type="text/javascript"></script>
-
+<script src="tutorial.js" type="text/javascript"></script>
 </body>
 </html>

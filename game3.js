@@ -5,9 +5,109 @@ const modalEl = document.getElementById('modal');
 const modalTextEl = document.getElementById('modal-text');
 const levelSelectorEl = document.getElementById('level-selector');
 // Level configurations (0 = white, 1 = black). 
-// The array remains 5x5; the script will generate the outer space automatically.
-// Define 5 different puzzles
-
+// Any rectangular size works (every row must have the same length).
+// The script generates the free outer ring automatically.
+// Puzzle layouts
+const levels = [
+     // Level 11: Asymmetric challenge
+    [
+        [1, 1, 0, 0, 0],
+        [1, 0, 0, 1, 0],
+        [0, 0, 0, 1, 0],
+        [0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1]
+    ],
+     // Level 12: Asymmetric challenge
+    [
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0]
+    ],
+     // Level 13: Asymmetric challenge
+    [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0]
+    ],
+     // Level 14: Asymmetric challenge
+    [
+       [0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0],
+        [1, 1, 0, 1, 1],
+        [0, 0, 1, 0, 0],
+        [1, 0, 0, 0, 0]
+    ],
+    // Level 15: Standard checkerboard-ish
+    [
+        [1, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0],
+        [1, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0],
+        [1, 0, 1, 0, 1]
+    ],
+    // Level 16: Horizontal stripes
+    [
+       [0, 0, 0, 1, 0],
+        [0, 1, 0, 0, 1],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0],
+        [0, 0, 1, 0, 1]
+    ],
+    // Level 17: Hollow square
+    [
+       [0, 1, 0, 0, 0],
+        [1, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 1],
+        [0, 0, 0, 1, 0]
+    ],
+    // Level 18: Diagonal cross
+    [
+        [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1]
+    ],
+    // Level 19: Asymmetric challenge
+    [
+       [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1]
+    ],
+    // Level 20: Asymmetric challenge
+    [
+       [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0]
+    ],
+     // Level 21: Asymmetric challenge
+    [
+        [1, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [1, 0, 1, 0, 1]
+    ],
+    // Level 22: tall 4x6 board (proves non-square boards work; delete if unwanted)
+    [
+        [0, 1, 0, 1],
+        [0, 1, 0, 1],
+        [0, 1, 0, 1],
+        [1, 0, 0, 1],
+        [1, 1, 0, 0],
+        [0, 1, 1, 0]
+    ],
+];
 
 let currentLevel = 0;
 // Track which levels have been solved
@@ -16,6 +116,16 @@ let tiles = [];
 let isDrawing = false;
 let currentPath = new Set();
 let lastTileIndex = -1;
+
+// Board dimensions, set in initLevel() from the level's layout.
+// "board" = the playable inner area; "grid" = the board plus the 1-tile outer ring.
+let boardRows = 0;
+let boardCols = 0;
+let gridWidth = 0;
+let gridHeight = 0;
+
+// Tall boards must fit on screen: the grid is never taller than this share of the viewport.
+const MAX_GRID_HEIGHT_VH = 60;
 
 // Render the level buttons
 function renderLevelSelector() {
@@ -48,9 +158,24 @@ function initLevel(levelIndex) {
     gridEl.innerHTML = '';
     tiles = [];
     const layout = levels[levelIndex];
-    
-    const gridWidth = 7;
-    const gridHeight = 7;
+
+    // Derive every size from the layout itself, so any board shape works
+    boardRows = layout.length;
+    boardCols = layout[0].length;
+    gridWidth = boardCols + 2;   // +2 for the free outer ring
+    gridHeight = boardRows + 2;
+
+    // Catch typos such as a row with a missing number
+    if (!layout.every(row => row.length === boardCols)) {
+        console.error(`Level ${levelIndex + 1}: every row must have ${boardCols} values.`);
+    }
+
+    // Describe this grid's shape to CSS (inline styles override the old repeat(7, 1fr))
+    gridEl.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
+    gridEl.style.gridTemplateRows = `repeat(${gridHeight}, 1fr)`;
+    gridEl.style.aspectRatio = `${gridWidth} / ${gridHeight}`;
+    gridEl.style.width = `min(100%, calc(${MAX_GRID_HEIGHT_VH}vh * ${gridWidth} / ${gridHeight}))`;
+    gridEl.style.margin = '0 auto';
 
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
@@ -162,22 +287,18 @@ window.addEventListener('pointerup', () => {
     }
 });
 
-// Initialize
-initLevel(currentLevel);
-
 // Helper function to locate a specific tile in the 1D array using 2D coordinates
 function getTileAt(x, y) {
-    const gridWidth = 7;
     return tiles[y * gridWidth + x];
 }
 
 function checkWinCondition() {
     let isSolved = true;
 
-    for (let x = 1; x <= 5; x++) {
+    for (let x = 1; x <= boardCols; x++) {
         const firstTileIsBlack = getTileAt(x, 1).classList.contains('flipped');
         
-        for (let y = 2; y <= 5; y++) {
+        for (let y = 2; y <= boardRows; y++) {
             const currentTileIsBlack = getTileAt(x, y).classList.contains('flipped');
             
             if (currentTileIsBlack !== firstTileIsBlack) {

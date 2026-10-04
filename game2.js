@@ -10,13 +10,24 @@ const levels = [
     {
         layout: [
             [1, 0, 1, 0, 1],
-            [0, 1, 0, 1, 0],
-            [1, 0, 1, 0, 1],
-            [0, 1, 0, 1, 0],
-            [1, 0, 1, 0, 1]
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1]
         ],
         // Block top-middle and bottom-left outer tiles as seen in the reference
-        blocked: [ {x: 3, y: 0}, {x: 1, y: 6} ] 
+        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
+    },
+    {
+        layout: [
+            [0, 0, 1, 0, 0],
+        [1, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1],
+        [0, 0, 1, 0, 0]
+        ],
+        // Block top-middle and bottom-left outer tiles as seen in the reference
+        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
     }
     // You can add more levels here following the same structure
 ];
