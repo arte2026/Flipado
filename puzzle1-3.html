@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Level 1-2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="menu-container">
+        <header>
+            <h3>Flip-O lv. 1-2</h3>
+            
+        </header>
+         <p>Select a puzzle to play</p>
+    
+    <main class="game">
+        <!-- Add the level selector here -->
+        <div id="level-selector" class="level-selector"></div>
+        <div id="grid" class="grid"></div>
+        
+        
+        <!-- Add this modal container -->
+        <div id="modal" class="modal">
+            <h2 id="modal-text"></h2>
+        </div>
+    </main>
+    <p id="status">Make every column one color</p>
+    <a href="index.html" class="btn-back">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+</div>
+<script>
+    const levels = [
+    
+     // Level 13: Asymmetric challenge
+    [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0]
+    ],
+     // Level 14: Asymmetric challenge
+    [
+       [0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0],
+        [1, 1, 0, 1, 1],
+        [0, 0, 1, 0, 0],
+        [1, 0, 0, 0, 0]
+    ],
+    // Level 15: Standard checkerboard-ish
+    [
+        [1, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0],
+        [1, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0],
+        [1, 0, 1, 0, 1]
+    ],
+    // Level 16: Horizontal stripes
+    [
+       [0, 0, 0, 1, 0],
+        [0, 1, 0, 0, 1],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0],
+        [0, 0, 1, 0, 1]
+    ],
+    // Level 17: Hollow square
+    [
+       [0, 1, 0, 0, 0],
+        [1, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 1],
+        [0, 0, 0, 1, 0]
+    ],
+    // Level 18: Diagonal cross
+    [
+        [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1]
+    ],
+    // Level 19: Asymmetric challenge
+    [
+       [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1]
+    ],
+    // Level 20: Asymmetric challenge
+    [
+       [0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0]
+    ],
+     // Level 21: Asymmetric challenge
+    [
+        [1, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0],
+        [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [1, 0, 1, 0, 1]
+    ],
+     // Level 21: Asymmetric challenge
+    [
+        [0, 1, 1, 1, 0],
+        [1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0]
+    ],
+     // Level 21: Asymmetric challenge
+    [
+        [1, 0, 0, 0, 1],
+        [0, 1, 0, 1, 0],
+        [1, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 0]
+    ],
+     // Level 21: Asymmetric challenge
+    [
+        [1, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0],
+        [0, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0],
+        [1, 0, 1, 0, 0]
+    ],
+];
+</script>
+    <script src="game2.js"></script>
+
+</body>
+</html>

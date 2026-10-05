@@ -1,116 +1,55 @@
 const gridEl = document.getElementById('grid');
 const statusEl = document.getElementById('status');
-// Add these DOM references at the top of game.js
 const modalEl = document.getElementById('modal');
 const modalTextEl = document.getElementById('modal-text');
 const levelSelectorEl = document.getElementById('level-selector');
-// Level configurations (0 = white, 1 = black). 
-// Any rectangular size works (every row must have the same length).
-// The script generates the free outer ring automatically.
-// Puzzle layouts
+
+// Each level has a `layout` (the playable board: 1 = black, 0 = white) and an optional
+// list of `blocked` outer tiles. Any rectangular layout works: every row must have the
+// same length, and the grid adds a 1-tile outer ring around it automatically.
+// `blocked` uses grid coordinates INCLUDING the ring: (0,0) is the top-left outer tile
+// and (layout width + 1, layout height + 1) is the bottom-right outer tile.
+// For a 5x5 layout that is (6,6); for a 4-wide, 6-tall layout it is (5,7).
 const levels = [
-     // Level 11: Asymmetric challenge
-    [
-        [1, 1, 0, 0, 0],
-        [1, 0, 0, 1, 0],
-        [0, 0, 0, 1, 0],
-        [0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1]
-    ],
-     // Level 12: Asymmetric challenge
-    [
-        [0, 0, 0, 0, 0],
-        [0, 1, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-        [0, 1, 0, 1, 0],
-        [0, 0, 0, 0, 0]
-    ],
-     // Level 13: Asymmetric challenge
-    [
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 1, 0, 1, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 0, 0]
-    ],
-     // Level 14: Asymmetric challenge
-    [
-       [0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 0],
+    {
+        layout: [
+            [1, 0, 1, 0, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1]
+        ],
+        // Block top-middle and bottom-left outer tiles as seen in the reference
+        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
+    },
+    {
+        layout: [
+            [0, 0, 1, 0, 0],
         [1, 1, 0, 1, 1],
-        [0, 0, 1, 0, 0],
-        [1, 0, 0, 0, 0]
-    ],
-    // Level 15: Standard checkerboard-ish
-    [
-        [1, 0, 1, 0, 1],
-        [0, 0, 0, 0, 0],
-        [1, 0, 1, 0, 1],
-        [0, 0, 0, 0, 0],
-        [1, 0, 1, 0, 1]
-    ],
-    // Level 16: Horizontal stripes
-    [
-       [0, 0, 0, 1, 0],
-        [0, 1, 0, 0, 1],
-        [0, 0, 1, 0, 0],
-        [0, 1, 0, 0, 0],
-        [0, 0, 1, 0, 1]
-    ],
-    // Level 17: Hollow square
-    [
-       [0, 1, 0, 0, 0],
-        [1, 0, 1, 0, 0],
-        [0, 1, 0, 1, 0],
-        [0, 0, 1, 0, 1],
-        [0, 0, 0, 1, 0]
-    ],
-    // Level 18: Diagonal cross
-    [
-        [1, 0, 0, 0, 1],
-        [0, 1, 0, 1, 0],
-        [0, 0, 1, 0, 0],
-        [0, 1, 0, 1, 0],
-        [1, 0, 0, 0, 1]
-    ],
-    // Level 19: Asymmetric challenge
-    [
-       [1, 0, 0, 0, 1],
-        [0, 1, 0, 1, 0],
-        [0, 0, 0, 0, 0],
-        [0, 1, 0, 1, 0],
-        [1, 0, 0, 0, 1]
-    ],
-    // Level 20: Asymmetric challenge
-    [
-       [0, 0, 1, 0, 0],
-        [0, 1, 0, 1, 0],
-        [1, 0, 0, 0, 1],
-        [0, 1, 0, 1, 0],
+        [1, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1],
         [0, 0, 1, 0, 0]
-    ],
-     // Level 21: Asymmetric challenge
-    [
-        [1, 0, 1, 0, 1],
-        [0, 1, 0, 1, 0],
-        [1, 0, 0, 0, 1],
-        [0, 1, 0, 1, 0],
-        [1, 0, 1, 0, 1]
-    ],
-    // Level 22: tall 4x6 board (proves non-square boards work; delete if unwanted)
-    [
-        [0, 1, 0, 1],
-        [0, 1, 0, 1],
-        [0, 1, 0, 1],
-        [1, 0, 0, 1],
-        [1, 1, 0, 0],
-        [0, 1, 1, 0]
-    ],
+        ],
+        // Block top-middle and bottom-left outer tiles as seen in the reference
+        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
+    },
+    // Level 3: tall 4x6 board (a 6x8 grid with the ring). Shows non-square boards work; delete if unwanted.
+    {
+        layout: [
+            [0, 1, 0, 1],
+            [0, 1, 0, 1],
+            [0, 1, 0, 1],
+            [1, 0, 0, 1],
+            [1, 1, 0, 0],
+            [0, 1, 1, 0]
+        ],
+        // Here x runs 0-5 and y runs 0-7
+        blocked: [ {x: 3, y: 0}, {x: 2, y: 7} ]
+    }
+    // You can add more levels here following the same structure
 ];
 
 let currentLevel = 0;
-// Track which levels have been solved
 let completedLevels = new Array(levels.length).fill(false);
 let tiles = [];
 let isDrawing = false;
@@ -127,22 +66,16 @@ let gridHeight = 0;
 // Tall boards must fit on screen: the grid is never taller than this share of the viewport.
 const MAX_GRID_HEIGHT_VH = 60;
 
-// Render the level buttons
 function renderLevelSelector() {
-    levelSelectorEl.innerHTML = ''; // Clear previous buttons
+    levelSelectorEl.innerHTML = ''; 
     
     levels.forEach((_, index) => {
         const btn = document.createElement('button');
         btn.classList.add('level-btn');
         btn.textContent = index + 1;
         
-        if (index === currentLevel) {
-            btn.classList.add('active');
-        }
-        
-        if (completedLevels[index]) {
-            btn.classList.add('completed');
-        }
+        if (index === currentLevel) btn.classList.add('active');
+        if (completedLevels[index]) btn.classList.add('completed');
         
         btn.addEventListener('click', () => {
             currentLevel = index;
@@ -154,10 +87,17 @@ function renderLevelSelector() {
     });
 }
 
+// Helper function to locate a specific tile in the 1D array using 2D coordinates
+function getTileAt(x, y) {
+    return tiles[y * gridWidth + x];
+}
+
 function initLevel(levelIndex) {
     gridEl.innerHTML = '';
     tiles = [];
-    const layout = levels[levelIndex];
+    const levelData = levels[levelIndex];
+    const layout = levelData.layout;
+    const blockedCoords = levelData.blocked || [];
 
     // Derive every size from the layout itself, so any board shape works
     boardRows = layout.length;
@@ -165,10 +105,19 @@ function initLevel(levelIndex) {
     gridWidth = boardCols + 2;   // +2 for the free outer ring
     gridHeight = boardRows + 2;
 
-    // Catch typos such as a row with a missing number
+    // Catch typos in level data (messages appear in the browser console)
     if (!layout.every(row => row.length === boardCols)) {
-        console.error(`Level ${levelIndex + 1}: every row must have ${boardCols} values.`);
+        console.error(`Level ${levelIndex + 1}: every layout row must have ${boardCols} values.`);
     }
+    blockedCoords.forEach(({ x, y }) => {
+        const inside = x >= 0 && x < gridWidth && y >= 0 && y < gridHeight;
+        const onRing = x === 0 || x === gridWidth - 1 || y === 0 || y === gridHeight - 1;
+        if (!inside) {
+            console.error(`Level ${levelIndex + 1}: blocked tile (${x}, ${y}) is outside the ${gridWidth}x${gridHeight} grid.`);
+        } else if (!onRing) {
+            console.warn(`Level ${levelIndex + 1}: blocked tile (${x}, ${y}) is inside the board. Only outer tiles can be blocked, so it is ignored.`);
+        }
+    });
 
     // Describe this grid's shape to CSS (inline styles override the old repeat(7, 1fr))
     gridEl.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
@@ -179,11 +128,9 @@ function initLevel(levelIndex) {
 
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
-            // Create the wrapper
             const tile = document.createElement('div');
             tile.classList.add('tile');
             
-            // Create the 3D inner structure
             const tileInner = document.createElement('div');
             tileInner.classList.add('tile-inner');
             
@@ -193,18 +140,22 @@ function initLevel(levelIndex) {
             const tileBack = document.createElement('div');
             tileBack.classList.add('tile-face', 'tile-back');
             
-            // Assemble the layers
             tileInner.appendChild(tileFront);
             tileInner.appendChild(tileBack);
             tile.appendChild(tileInner);
             
             const isOuter = x === 0 || x === gridWidth - 1 || y === 0 || y === gridHeight - 1;
             
+            // Check if current coordinate is in the blocked array
+            const isBlocked = isOuter && blockedCoords.some(coord => coord.x === x && coord.y === y);
+            
             if (isOuter) {
                 tile.classList.add('outer');
+                if (isBlocked) {
+                    tile.classList.add('blocked');
+                }
             } else {
                 if (layout[y - 1][x - 1] === 1) {
-                    // Apply 'flipped' instead of 'black' to start the tile on the dark face
                     tile.classList.add('flipped');
                 }
             }
@@ -213,6 +164,7 @@ function initLevel(levelIndex) {
             tile.dataset.x = x;
             tile.dataset.y = y;
             tile.dataset.isOuter = isOuter; 
+            tile.dataset.isBlocked = isBlocked;
 
             gridEl.appendChild(tile);
             tiles.push(tile);
@@ -227,10 +179,7 @@ gridEl.addEventListener('pointerdown', (e) => {
     isDrawing = true;
     currentPath.clear();
     
-    // Clear the path traces from outer space
     document.querySelectorAll('.path-trace').forEach(t => t.classList.remove('path-trace'));
-    
-    // NEW: Clear the yellow highlight borders from the previous attempt
     document.querySelectorAll('.highlight').forEach(t => t.classList.remove('highlight'));
     
     gridEl.setPointerCapture(e.pointerId);
@@ -252,6 +201,9 @@ gridEl.addEventListener('pointermove', (e) => {
 function addTileToPath(tile) {
     const index = parseInt(tile.dataset.index);
     
+    // Prevent dragging through blocked outer tiles
+    if (tile.dataset.isBlocked === "true") return;
+    
     if (currentPath.has(index)) return;
     
     if (currentPath.size > 0) {
@@ -269,27 +221,8 @@ function addTileToPath(tile) {
         tile.classList.add('path-trace');
     } else {
         tile.classList.toggle('flipped');
-        
-        // NEW: Add the highlight class to show the yellow border
         tile.classList.add('highlight');
     }
-}
-
-// Update your existing pointerup listener
-window.addEventListener('pointerup', () => {
-    if (isDrawing) {
-        isDrawing = false;
-        
-        // Only run the check if the player actually drew a path
-        if (currentPath.size > 0) {
-            checkWinCondition();
-        }
-    }
-});
-
-// Helper function to locate a specific tile in the 1D array using 2D coordinates
-function getTileAt(x, y) {
-    return tiles[y * gridWidth + x];
 }
 
 function checkWinCondition() {
@@ -311,7 +244,6 @@ function checkWinCondition() {
     }
 
     if (isSolved) {
-        // Mark current level as completed and update UI
         completedLevels[currentLevel] = true;
         renderLevelSelector();
 
@@ -319,7 +251,6 @@ function checkWinCondition() {
         modalTextEl.style.color = "#4CAF50";
         modalEl.classList.add('active');
         
-        // Auto-close modal after success
         setTimeout(() => {
             modalEl.classList.remove('active');
         }, 1200);
@@ -336,6 +267,14 @@ function checkWinCondition() {
     }
 }
 
-// Initialize the game
+window.addEventListener('pointerup', () => {
+    if (isDrawing) {
+        isDrawing = false;
+        if (currentPath.size > 0) {
+            checkWinCondition();
+        }
+    }
+});
+
 renderLevelSelector();
 initLevel(currentLevel);

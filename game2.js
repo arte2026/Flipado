@@ -1,54 +1,48 @@
 const gridEl = document.getElementById('grid');
 const statusEl = document.getElementById('status');
+// Add these DOM references at the top of game.js
 const modalEl = document.getElementById('modal');
 const modalTextEl = document.getElementById('modal-text');
 const levelSelectorEl = document.getElementById('level-selector');
+// Level configurations (0 = white, 1 = black). 
+// Any rectangular size works (every row must have the same length).
+// The script generates the free outer ring automatically.
 
-// Define levels using objects to include blocked coordinates for the 7x7 grid
-// (0,0) is top-left outer tile, (6,6) is bottom-right outer tile
-const levels = [
-    {
-        layout: [
-            [1, 0, 1, 0, 1],
-            [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1]
-        ],
-        // Block top-middle and bottom-left outer tiles as seen in the reference
-        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
-    },
-    {
-        layout: [
-            [0, 0, 1, 0, 0],
-        [1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [0, 0, 1, 0, 0]
-        ],
-        // Block top-middle and bottom-left outer tiles as seen in the reference
-        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
-    }
-    // You can add more levels here following the same structure
-];
 
 let currentLevel = 0;
+// Track which levels have been solved
 let completedLevels = new Array(levels.length).fill(false);
 let tiles = [];
 let isDrawing = false;
 let currentPath = new Set();
 let lastTileIndex = -1;
 
+// Board dimensions, set in initLevel() from the level's layout.
+// "board" = the playable inner area; "grid" = the board plus the 1-tile outer ring.
+let boardRows = 0;
+let boardCols = 0;
+let gridWidth = 0;
+let gridHeight = 0;
+
+// Tall boards must fit on screen: the grid is never taller than this share of the viewport.
+const MAX_GRID_HEIGHT_VH = 60;
+
+// Render the level buttons
 function renderLevelSelector() {
-    levelSelectorEl.innerHTML = ''; 
+    levelSelectorEl.innerHTML = ''; // Clear previous buttons
     
     levels.forEach((_, index) => {
         const btn = document.createElement('button');
         btn.classList.add('level-btn');
         btn.textContent = index + 1;
         
-        if (index === currentLevel) btn.classList.add('active');
-        if (completedLevels[index]) btn.classList.add('completed');
+        if (index === currentLevel) {
+            btn.classList.add('active');
+        }
+        
+        if (completedLevels[index]) {
+            btn.classList.add('completed');
+        }
         
         btn.addEventListener('click', () => {
             currentLevel = index;
@@ -60,27 +54,36 @@ function renderLevelSelector() {
     });
 }
 
-// Helper function to locate a specific tile in the 1D array using 2D coordinates
-function getTileAt(x, y) {
-    const gridWidth = 7;
-    return tiles[y * gridWidth + x];
-}
-
 function initLevel(levelIndex) {
     gridEl.innerHTML = '';
     tiles = [];
-    const levelData = levels[levelIndex];
-    const layout = levelData.layout;
-    const blockedCoords = levelData.blocked || [];
-    
-    const gridWidth = 7;
-    const gridHeight = 7;
+    const layout = levels[levelIndex];
+
+    // Derive every size from the layout itself, so any board shape works
+    boardRows = layout.length;
+    boardCols = layout[0].length;
+    gridWidth = boardCols + 2;   // +2 for the free outer ring
+    gridHeight = boardRows + 2;
+
+    // Catch typos such as a row with a missing number
+    if (!layout.every(row => row.length === boardCols)) {
+        console.error(`Level ${levelIndex + 1}: every row must have ${boardCols} values.`);
+    }
+
+    // Describe this grid's shape to CSS (inline styles override the old repeat(7, 1fr))
+    gridEl.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
+    gridEl.style.gridTemplateRows = `repeat(${gridHeight}, 1fr)`;
+    gridEl.style.aspectRatio = `${gridWidth} / ${gridHeight}`;
+    gridEl.style.width = `min(100%, calc(${MAX_GRID_HEIGHT_VH}vh * ${gridWidth} / ${gridHeight}))`;
+    gridEl.style.margin = '0 auto';
 
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
+            // Create the wrapper
             const tile = document.createElement('div');
             tile.classList.add('tile');
             
+            // Create the 3D inner structure
             const tileInner = document.createElement('div');
             tileInner.classList.add('tile-inner');
             
@@ -90,22 +93,18 @@ function initLevel(levelIndex) {
             const tileBack = document.createElement('div');
             tileBack.classList.add('tile-face', 'tile-back');
             
+            // Assemble the layers
             tileInner.appendChild(tileFront);
             tileInner.appendChild(tileBack);
             tile.appendChild(tileInner);
             
             const isOuter = x === 0 || x === gridWidth - 1 || y === 0 || y === gridHeight - 1;
             
-            // Check if current coordinate is in the blocked array
-            const isBlocked = blockedCoords.some(coord => coord.x === x && coord.y === y);
-            
             if (isOuter) {
                 tile.classList.add('outer');
-                if (isBlocked) {
-                    tile.classList.add('blocked');
-                }
             } else {
                 if (layout[y - 1][x - 1] === 1) {
+                    // Apply 'flipped' instead of 'black' to start the tile on the dark face
                     tile.classList.add('flipped');
                 }
             }
@@ -114,7 +113,6 @@ function initLevel(levelIndex) {
             tile.dataset.x = x;
             tile.dataset.y = y;
             tile.dataset.isOuter = isOuter; 
-            tile.dataset.isBlocked = isBlocked;
 
             gridEl.appendChild(tile);
             tiles.push(tile);
@@ -129,7 +127,10 @@ gridEl.addEventListener('pointerdown', (e) => {
     isDrawing = true;
     currentPath.clear();
     
+    // Clear the path traces from outer space
     document.querySelectorAll('.path-trace').forEach(t => t.classList.remove('path-trace'));
+    
+    // NEW: Clear the yellow highlight borders from the previous attempt
     document.querySelectorAll('.highlight').forEach(t => t.classList.remove('highlight'));
     
     gridEl.setPointerCapture(e.pointerId);
@@ -151,9 +152,6 @@ gridEl.addEventListener('pointermove', (e) => {
 function addTileToPath(tile) {
     const index = parseInt(tile.dataset.index);
     
-    // Prevent dragging through blocked outer tiles
-    if (tile.dataset.isBlocked === "true") return;
-    
     if (currentPath.has(index)) return;
     
     if (currentPath.size > 0) {
@@ -171,17 +169,36 @@ function addTileToPath(tile) {
         tile.classList.add('path-trace');
     } else {
         tile.classList.toggle('flipped');
+        
+        // NEW: Add the highlight class to show the yellow border
         tile.classList.add('highlight');
     }
+}
+
+// Update your existing pointerup listener
+window.addEventListener('pointerup', () => {
+    if (isDrawing) {
+        isDrawing = false;
+        
+        // Only run the check if the player actually drew a path
+        if (currentPath.size > 0) {
+            checkWinCondition();
+        }
+    }
+});
+
+// Helper function to locate a specific tile in the 1D array using 2D coordinates
+function getTileAt(x, y) {
+    return tiles[y * gridWidth + x];
 }
 
 function checkWinCondition() {
     let isSolved = true;
 
-    for (let x = 1; x <= 5; x++) {
+    for (let x = 1; x <= boardCols; x++) {
         const firstTileIsBlack = getTileAt(x, 1).classList.contains('flipped');
         
-        for (let y = 2; y <= 5; y++) {
+        for (let y = 2; y <= boardRows; y++) {
             const currentTileIsBlack = getTileAt(x, y).classList.contains('flipped');
             
             if (currentTileIsBlack !== firstTileIsBlack) {
@@ -194,16 +211,18 @@ function checkWinCondition() {
     }
 
     if (isSolved) {
+        // Mark current level as completed and update UI
         completedLevels[currentLevel] = true;
         renderLevelSelector();
 
-        modalTextEl.textContent = "Completed";
+        modalTextEl.textContent = "⭐ Completed";
         modalTextEl.style.color = "#4CAF50";
         modalEl.classList.add('active');
         
+        // Auto-close modal after success
         setTimeout(() => {
             modalEl.classList.remove('active');
-        }, 1200);
+        }, 1400);
 
     } else {
         modalTextEl.textContent = "Failed";
@@ -213,18 +232,10 @@ function checkWinCondition() {
         setTimeout(() => {
             modalEl.classList.remove('active');
             initLevel(currentLevel);
-        }, 1200);
+        }, 1400);
     }
 }
 
-window.addEventListener('pointerup', () => {
-    if (isDrawing) {
-        isDrawing = false;
-        if (currentPath.size > 0) {
-            checkWinCondition();
-        }
-    }
-});
-
+// Initialize the game
 renderLevelSelector();
 initLevel(currentLevel);
