@@ -13,3 +13,12 @@ enterBtn.addEventListener("click", () => {
 welcomeScreen.addEventListener("click", () => {
   enterBtn.click();
 });
+
+const statsBtn = document.getElementById("stats-btn");
+if (statsBtn) {
+  statsBtn.addEventListener("click", () => {
+    if (typeof window.AndroidBridge !== "undefined") {
+      window.AndroidBridge.showLeaderboard("");
+    }
+  });
+}

@@ -247,6 +247,10 @@ function checkWinCondition() {
         completedLevels[currentLevel] = true;
         renderLevelSelector();
 
+        if (typeof window.AndroidBridge !== "undefined") {
+            window.AndroidBridge.submitScore("", currentLevel + 1);
+        }
+
         modalTextEl.textContent = "Completed";
         modalTextEl.style.color = "#4CAF50";
         modalEl.classList.add('active');
