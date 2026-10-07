@@ -10,8 +10,19 @@ const levelSelectorEl = document.getElementById('level-selector');
 
 
 let currentLevel = 0;
-// Track which levels have been solved
-let completedLevels = new Array(levels.length).fill(false);
+// Solved puzzles are saved in the browser (see progress.js), one list per puzzle page.
+// The page's file name (e.g. "puzzle1-1") identifies it; <body data-level-set="..."> overrides that.
+const levelSetId = document.body.dataset.levelSet ||
+    (location.pathname.split('/').pop() || 'puzzle').replace(/\.html?$/i, '');
+
+if (typeof Progress === 'undefined') {
+    console.warn('progress.js is not loaded on this page, so solved puzzles will not be saved.');
+}
+
+// Track which levels have been solved (restored from saved progress)
+let completedLevels = (typeof Progress !== 'undefined')
+    ? Progress.getSolvedFlags(levelSetId, levels.length)
+    : new Array(levels.length).fill(false);
 let tiles = [];
 let isDrawing = false;
 let currentPath = new Set();
@@ -213,6 +224,9 @@ function checkWinCondition() {
     if (isSolved) {
         // Mark current level as completed and update UI
         completedLevels[currentLevel] = true;
+        if (typeof Progress !== 'undefined') {
+            Progress.markSolved(levelSetId, currentLevel, levels.length);
+        }
         renderLevelSelector();
 
         if (typeof window.AndroidBridge !== "undefined") {

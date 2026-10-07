@@ -26,7 +26,7 @@
         
         <header>
             <h1>Flip-O</h1>
-            <p>Flip the tiles, solve the board.</p>
+            <p>Tile Flipping Puzzle Game</p>
         </header>
 
         <!-- Main Action -->
@@ -92,17 +92,34 @@
 
         <!-- Secondary Actions -->
         <div class="secondary-actions">
-            <button class="btn btn-icon" id="stats-btn">
+            <button class="btn btn-icon" >
                 <span class="material-symbols-outlined">emoji_events</span>
-                Stats
+                =
+                <div class="stars">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span id="stats-stars">0</span>
+                </div>
             </button>
-            <button class="btn btn-icon">
+            <button id="settings-btn" class="btn btn-icon">
                 <span class="material-symbols-outlined">settings</span>
                 Settings
             </button>
         </div>
-        <p>v. 1.2 | G R Monroy 2026 </p>
+        <p>v. 1.4 | G R Monroy 2026 </p>
     </div>
+
+    <!-- Settings Modal -->
+<div id="settings-modal" class="tutorial-modal" role="dialog" aria-modal="true" aria-label="Settings" hidden>
+    <div class="settings-card">
+        <h2 style="color: var(--md-sys-color-primary);">Select Theme</h2>
+        <div class="theme-options">
+            <button class="btn theme-btn" data-theme="theme-default" style="background: #6750A4; color: white;">Purple</button>
+            <button class="btn theme-btn" data-theme="theme-ocean" style="background: #589951; color: white;">Green</button>
+            <button class="btn theme-btn" data-theme="theme-forest" style="background: #997551; color: white;">Brown</button>
+        </div>
+        <button type="button" id="settings-close" class="btn btn-primary tutorial-close">Close</button>
+    </div>
+</div>
 
 <!-- Tutorial: opened by the Play Tutorial button -->
     <div id="tutorial-modal" class="tutorial-modal" role="dialog" aria-modal="true" aria-label="How to play" hidden>
@@ -226,7 +243,8 @@
         </div>
     </div>
 
+<script src="progress.js" type="text/javascript"></script>
 <script src="script.js" type="text/javascript"></script>
-<script src="tutorial.js" type="text/javascript"></script>
+
 </body>
 </html>
