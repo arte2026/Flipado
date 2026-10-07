@@ -14,6 +14,9 @@
 <body>
     <div class="menu-container">
         <header >
+            <a href="index.html" class="btn-back">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </a>
             <h3>Flip-O lv. 1-2</h3>
             
         </header>
@@ -31,27 +34,39 @@
         </div>
     </main>
     <p id="status">Make every column one color</p>
-    <a href="index.html" class="btn-back">
-        <span class="material-symbols-outlined">arrow_back</span>
-    </a>
+    
 </div>
 <script>
     const levels = [
      // Level 1: Asymmetric challenge
+    [
+       [0,1,1,0],
+[1,0,0,1],
+[1,1,0,0],
+[0,1,1,1]
+    ],
+    // Level 2: Asymmetric challenge
+    [
+       [1,1,0,1],
+[0,1,1,0],
+[1,0,1,1],
+[0,0,1,0]
+    ],
+    // Level 3: Asymmetric challenge
     [
         [0,1,1,1],
 [1,0,1,0],
 [1,1,0,1],
 [0,0,1,0]
     ],
-     // Level 2: Asymmetric challenge
+     // Level 4: Asymmetric challenge
     [
         [1,0,1,0],
 [1,1,0,1],
 [0,1,1,0],
 [1,0,0,1]
     ],
-     // Level 3: Asymmetric challenge
+     // Level 5: Asymmetric challenge
     [
        [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
@@ -59,7 +74,7 @@
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0]
     ],
-     // Level 4: Asymmetric challenge
+     // Level 6: Asymmetric challenge
     [
         [0, 1, 0, 1, 1],
         [0, 1, 0, 1, 1],
@@ -67,7 +82,7 @@
         [1, 1, 0, 1, 1],
         [1, 1, 0, 1, 1]
     ],
-     // Level 5: Asymmetric challenge
+     // Level 7: Asymmetric challenge
     [
         [1, 0, 1, 0, 1],
         [0, 0, 1, 0, 0],
@@ -75,7 +90,7 @@
         [0, 0, 1, 0, 0],
         [1, 0, 1, 0, 1]
     ],
-     // Level 6: Asymmetric challenge
+     // Level 8: Asymmetric challenge
     [
          [0, 0, 1, 0, 0],
         [1, 1, 0, 1, 1],
@@ -85,7 +100,7 @@
 
         
     ],
-     // Level 7: Asymmetric challenge
+     // Level 9: Asymmetric challenge
     [
        [1, 0, 1, 0, 1],
         [0, 1, 0, 1, 0],
@@ -93,7 +108,7 @@
         [0, 1, 0, 1, 0],
         [1, 0, 1, 0, 1]
     ],
-     // Level 8: Asymmetric challenge
+     // Level 10: Asymmetric challenge
     [
         [0, 0, 0, 0, 0],
         [1, 1, 0, 1, 1],
@@ -101,7 +116,7 @@
         [1, 1, 0, 1, 1],
         [0, 0, 0, 0, 0]
     ],
-     // Level 9: Asymmetric challenge
+     // Level 11: Asymmetric challenge
     [
         [1, 1, 1, 1, 1],
         [0, 0, 0, 0, 0],
@@ -109,7 +124,7 @@
         [0, 0, 0, 0, 0],
         [1, 1, 1, 1, 1]
     ],
-     // Level 10: Asymmetric challenge
+     // Level 12: Asymmetric challenge
     [
         [0, 1, 0, 1, 0],
         [0, 1, 0, 1, 0],
@@ -117,7 +132,7 @@
         [0, 1, 0, 1, 0],
         [0, 1, 0, 1, 0]
     ],
-     // Level 11: Asymmetric challenge
+     // Level 13: Asymmetric challenge
     [
         [1, 1, 0, 0, 0],
         [1, 0, 0, 1, 0],
@@ -125,13 +140,66 @@
         [0, 1, 1, 1, 0],
         [0, 0, 0, 0, 1]
     ],
-     // Level 12: Asymmetric challenge
+     // Level 14: Asymmetric challenge
     [
         [0, 0, 0, 0, 0],
         [0, 1, 0, 1, 0],
         [0, 0, 0, 0, 0],
         [0, 1, 0, 1, 0],
         [0, 0, 0, 0, 0]
+    ],
+      // Level 15: Asymmetric challenge
+    [
+        [1,0,1,0,1],
+[0,1,1,0,0],
+[1,1,0,1,0],
+[0,0,1,1,1],
+[1,0,0,1,0]
+    ],
+     
+     // Level 16: Asymmetric challenge
+    [
+        [0,0,1,1,0],
+[1,1,0,0,1],
+[1,0,1,1,0],
+[0,1,1,0,1],
+[1,0,0,1,1]
+    ],
+     
+     // Level 17: Asymmetric challenge
+    [
+        [1,0,0,1,1],
+[0,1,1,0,0],
+[1,1,0,1,0],
+[0,0,1,0,1],
+[1,1,0,1,1]
+    ],
+     
+     // Level 18: Asymmetric challenge
+    [
+       [1,0,0,1,1],
+[0,1,1,0,0],
+[1,1,0,1,0],
+[0,0,1,0,1],
+[1,1,0,1,1]
+    ],
+     
+     // Level 19: Asymmetric challenge
+    [
+        [1,1,0,0,1],
+[0,1,1,0,0],
+[1,0,1,1,0],
+[0,1,0,1,1],
+[1,0,1,0,1]
+    ],
+     
+     // Level 20: Asymmetric challenge
+    [
+        [0,1,0,1,0],
+[1,1,1,0,1],
+[0,0,1,1,0],
+[1,0,0,1,1],
+[1,1,0,0,1]
     ],
      
 ];
