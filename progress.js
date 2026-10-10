@@ -142,3 +142,243 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+//Sounds
+// Flip-O sound effects and vibration.
+//
+// Every sound has a built-in version synthesized with the Web Audio API, so the game is never silent.
+// To use your own recording instead, put a .wav file in the "sounds" folder (see SOUND_FILES below):
+// if the file is there it plays, and if it is missing the built-in sound plays.
+// Used by:  the main menu (splash tapped)  and  the puzzle pages (tile flipped, puzzle solved).
+//
+// Public API:
+//   Feedback.play('enter' | 'flip' | 'solved')   play a sound
+//   Feedback.vibrate('flip')            vibrate (does nothing on devices without vibration)
+//   Feedback.isSoundOn() / setSoundOn(true|false)
+//   Feedback.isVibrationOn() / setVibrationOn(true|false)
+// The on/off choices are saved in localStorage, so a future Settings screen can use them.
+
+const Feedback = (function () {
+    const SETTINGS_KEY = 'flipo.settings.v1';
+    const MASTER_VOLUME = 0.5;            // overall loudness, 0 to 1
+
+    // ---------- saved settings ----------
+    function readSettings() {
+        try {
+            const s = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+            return s && typeof s === 'object' ? s : {};
+        } catch (err) {
+            return {};
+        }
+    }
+
+    function saveSetting(key, value) {
+        const s = readSettings();
+        s[key] = value;
+        try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); } catch (err) { /* storage blocked */ }
+    }
+
+    function isOn(key) {
+        return readSettings()[key] !== false;     // on unless the player switched it off
+    }
+
+    // ---------- audio engine ----------
+    let audioCtx = null;
+
+    // Creates the audio engine on first use. Browsers keep it "suspended" until the player has
+    // tapped something, so every call also asks it to resume.
+    function getContext() {
+        if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return null;
+            try { audioCtx = new Ctx(); } catch (err) { return null; }
+        }
+        if (audioCtx.state === 'suspended') {
+            try {
+                const p = audioCtx.resume();
+                if (p && typeof p.catch === 'function') p.catch(() => {});
+            } catch (err) { /* try again on the next tap */ }
+        }
+        return audioCtx;
+    }
+
+    // One note: a short fade-in and a smooth fade-out keep it from clicking.
+    function tone(ctx, out, o) {
+        const t0 = ctx.currentTime + (o.start || 0);
+        const dur = o.dur || 0.2;
+        const osc = ctx.createOscillator();
+        const env = ctx.createGain();
+        osc.type = o.type || 'sine';
+        osc.frequency.setValueAtTime(o.freq, t0);
+        if (o.toFreq) osc.frequency.exponentialRampToValueAtTime(o.toFreq, t0 + dur);   // glide to another pitch
+        env.gain.setValueAtTime(0.0001, t0);
+        env.gain.exponentialRampToValueAtTime(o.gain || 0.4, t0 + 0.012);
+        env.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        osc.connect(env);
+        env.connect(out);
+        osc.start(t0);
+        osc.stop(t0 + dur + 0.02);
+    }
+
+    // A rising "whoosh": filtered noise whose filter sweeps upward.
+    function whoosh(ctx, out, o) {
+        const t0 = ctx.currentTime + (o.start || 0);
+        const dur = o.dur || 0.8;
+        const length = Math.ceil(ctx.sampleRate * dur);
+        const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < length; i++) data[i] = Math.random() * 2 - 1;
+
+        const src = ctx.createBufferSource();
+        src.buffer = buffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.Q.value = 1.2;
+        filter.frequency.setValueAtTime(o.from, t0);
+        filter.frequency.exponentialRampToValueAtTime(o.to, t0 + dur * 0.6);
+
+        const env = ctx.createGain();
+        env.gain.setValueAtTime(0.0001, t0);
+        env.gain.exponentialRampToValueAtTime(o.gain || 0.3, t0 + dur * 0.25);
+        env.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+
+        src.connect(filter);
+        filter.connect(env);
+        env.connect(out);
+        src.start(t0);
+        src.stop(t0 + dur);
+    }
+
+    // ---------- your own sound files ----------
+    // Put your recordings in a "sounds" folder next to the HTML files. In the Android Studio project that is
+    // app/src/main/assets/sounds/. Change a name below if your file is called something else.
+    //   src     the file, relative to the HTML page
+    //   volume  0 to 1
+    //   copies  how many can play at once (a fast swipe flips several tiles within one sound's length)
+    const SOUND_FILES = {
+        flip:   { src: 'bong.ogg',   volume: 0.6, copies: 4 },
+        solved: { src: 'win.wav', volume: 1.0, copies: 1 }
+    };
+
+    const filePools = {};
+
+    // Starts loading every file right away so the first sound has no delay.
+    // A file that is missing or can't be read is skipped; the built-in sound is used for it.
+    function loadSoundFiles() {
+        if (typeof Audio !== 'function') return;
+        Object.keys(SOUND_FILES).forEach((name) => {
+            const cfg = SOUND_FILES[name];
+            const pool = [];
+            try {
+                for (let i = 0; i < cfg.copies; i++) {
+                    const el = new Audio();
+                    el.preload = 'auto';
+                    el.volume = cfg.volume;
+                    el.src = cfg.src;
+                    pool.push(el);
+                }
+            } catch (err) { return; }
+            filePools[name] = { pool: pool, next: 0 };
+        });
+    }
+
+    // Plays the player's own file. Returns false when there is none to play.
+    function playFile(name) {
+        const entry = filePools[name];
+        if (!entry) return false;
+        const el = entry.pool[entry.next];
+        // readyState 0 means the file is missing or unreadable (1 or more means it was found)
+        if (el.error || el.readyState < 1) return false;
+        entry.next = (entry.next + 1) % entry.pool.length;
+        try {
+            el.currentTime = 0;                                   // restart if it is still playing
+            const p = el.play();
+            if (p && typeof p.catch === 'function') p.catch(() => {});   // blocked by the browser: ignore
+        } catch (err) {
+            return false;
+        }
+        return true;
+    }
+
+    // ---------- the sounds ----------
+    const SOUNDS = {
+        // Splash tapped: a soft whoosh and two chime notes, about as long as the 0.9 s fade-out
+        enter(ctx, out) {
+            whoosh(ctx, out, { dur: 0.9, from: 250, to: 3000, gain: 0.35 });
+            tone(ctx, out, { freq: 659.25, start: 0.05, dur: 0.35, gain: 0.35 });   // E5
+            tone(ctx, out, { freq: 987.77, start: 0.16, dur: 0.6, gain: 0.3 });     // B5
+        },
+
+        // Tile flipped: a tiny "tick" that drops in pitch, short enough to repeat many times in one swipe
+        flip(ctx, out) {
+            tone(ctx, out, { freq: 900, toFreq: 450, dur: 0.07, type: 'triangle', gain: 0.3 });
+        },
+
+        // Puzzle solved: a quick rising arpeggio with a little sparkle on top
+        solved(ctx, out) {
+            [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {                 // C5 E5 G5 C6
+                tone(ctx, out, { freq: freq, start: i * 0.1, dur: i === 3 ? 0.7 : 0.25, type: 'triangle', gain: 0.4 });
+            });
+            tone(ctx, out, { freq: 2093, start: 0.3, dur: 0.6, gain: 0.08 });       // C7
+        }
+    };
+
+    // ---------- vibration patterns, in milliseconds ----------
+    const PATTERNS = {
+        flip: 12        // one short tick for each tile that flips
+    };
+
+    // Get the audio engine ready on the player's first touch, click or key press
+    const FIRST_TOUCH_EVENTS = ['pointerdown', 'touchstart', 'click', 'keydown'];
+    function onFirstTouch() {
+        FIRST_TOUCH_EVENTS.forEach((name) => document.removeEventListener(name, onFirstTouch, true));
+        if (isOn('sound')) getContext();
+    }
+    FIRST_TOUCH_EVENTS.forEach((name) => document.addEventListener(name, onFirstTouch, true));
+
+    loadSoundFiles();
+
+    return {
+        play(name) {
+            if (!isOn('sound')) return;
+            if (playFile(name)) return;           // your own recording, when it is there
+            if (!SOUNDS[name]) return;            // otherwise the built-in sound
+            const ctx = getContext();
+            if (!ctx) return;
+            try {
+                const out = ctx.createGain();
+                out.gain.value = MASTER_VOLUME;
+                out.connect(ctx.destination);
+                SOUNDS[name](ctx, out);
+            } catch (err) { /* sound is a bonus: never let it break the game */ }
+        },
+
+        vibrate(name) {
+            if (!PATTERNS[name] || !isOn('vibration')) return;
+            try {
+                if (navigator.vibrate) navigator.vibrate(PATTERNS[name]);
+            } catch (err) { /* not supported */ }
+        },
+
+        isSoundOn() { return isOn('sound'); },
+        setSoundOn(on) { saveSetting('sound', !!on); },
+        isVibrationOn() { return isOn('vibration'); },
+        setVibrationOn(on) { saveSetting('vibration', !!on); }
+    };
+})();
+
+// Main menu: play the entrance sound when the splash screen is tapped.
+// Does nothing on pages without the splash.
+(function () {
+    function hookSplash() {
+        const splash = document.getElementById('welcomeScreen') || document.getElementById('enterBtn');
+        if (splash) splash.addEventListener('click', () => Feedback.play('enter'), { once: true });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hookSplash);
+    } else {
+        hookSplash();
+    }
+})();

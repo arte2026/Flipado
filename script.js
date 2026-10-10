@@ -14,6 +14,7 @@ welcomeScreen.addEventListener("click", () => {
   enterBtn.click();
 });
 
+//STATS BUTTON
 const statsBtn = document.getElementById("stats-stars");
 if (statsBtn) {
   statsBtn.addEventListener("click", () => {

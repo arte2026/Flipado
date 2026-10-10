@@ -19,6 +19,9 @@ if (typeof Progress === 'undefined') {
     console.warn('progress.js is not loaded on this page, so solved puzzles will not be saved.');
 }
 
+// Sound and vibration come from feedback.js. If it isn't loaded, the game simply stays silent.
+const feedback = (typeof Feedback !== 'undefined') ? Feedback : { play() {}, vibrate() {} };
+
 // Track which levels have been solved (restored from saved progress)
 let completedLevels = (typeof Progress !== 'undefined')
     ? Progress.getSolvedFlags(levelSetId, levels.length)
@@ -180,7 +183,8 @@ function addTileToPath(tile) {
         tile.classList.add('path-trace');
     } else {
         tile.classList.toggle('flipped');
-        
+         feedback.vibrate('flip');
+        feedback.play('flip');
         // NEW: Add the highlight class to show the yellow border
         tile.classList.add('highlight');
     }
@@ -228,7 +232,7 @@ function checkWinCondition() {
             Progress.markSolved(levelSetId, currentLevel, levels.length);
         }
         renderLevelSelector();
-
+ feedback.play('solved');
         if (typeof window.AndroidBridge !== "undefined") {
             window.AndroidBridge.submitScore("", currentLevel + 1);
         }
