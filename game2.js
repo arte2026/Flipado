@@ -225,6 +225,10 @@ function checkWinCondition() {
         if (!isSolved) break; 
     }
 
+    const modalStatsEl = document.getElementById('modal-stats');
+    const closeBtn = document.getElementById('modal-close-btn');
+    const resetBtn = document.getElementById('modal-reset-btn');
+
     if (isSolved) {
         // Mark current level as completed and update UI
         completedLevels[currentLevel] = true;
@@ -232,25 +236,50 @@ function checkWinCondition() {
             Progress.markSolved(levelSetId, currentLevel, levels.length);
         }
         renderLevelSelector();
- feedback.play('solved');
+        feedback.play('solved');
+        
         if (typeof window.AndroidBridge !== "undefined") {
             window.AndroidBridge.submitScore("", currentLevel + 1);
         }
 
+        const movesMade = currentPath.size;
+
         modalTextEl.textContent = "⭐ Completed";
         modalTextEl.style.color = "#4CAF50";
-        modalEl.classList.add('active');
         
-        // Auto-close modal after success
-        setTimeout(() => {
+        if (modalStatsEl) {
+            modalStatsEl.textContent = `Total moves: ${movesMade}`;
+        }
+        
+        // Show close button for success, hide/ignore auto-reset timers
+        if (closeBtn) closeBtn.style.display = 'flex';
+        modalEl.classList.add('active');
+        if (resetBtn) resetBtn.style.display = 'flex'; // Show reset button on success
+        // Handle manual close click
+        if (closeBtn) {
+            const newCloseBtn = closeBtn.cloneNode(true);
+            closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+            
+            newCloseBtn.addEventListener('click', () => {
+                modalEl.classList.remove('active');
+            });
+        }
+resetBtn.addEventListener('click', () => {
             modalEl.classList.remove('active');
-        }, 1400);
-
+            initLevel(currentLevel);
+        })
     } else {
         modalTextEl.textContent = "Failed";
         modalTextEl.style.color = "#F44336";
-        modalEl.classList.add('active');
         
+        if (modalStatsEl) {
+            modalStatsEl.textContent = "";
+        }
+        
+        // Hide close button on failure so it auto-resets smoothly like before
+        if (closeBtn) closeBtn.style.display = 'none';
+        modalEl.classList.add('active');
+        if (resetBtn) resetBtn.style.display = 'none'; // Hide reset button on failure
         setTimeout(() => {
             modalEl.classList.remove('active');
             initLevel(currentLevel);

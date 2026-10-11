@@ -152,6 +152,7 @@
             padding: 16px 24px;
             width: 55%;
             box-shadow: var(--md-elevation-1);
+            margin-top: 10px
         }
 
         .btn-primary:hover {
@@ -219,6 +220,8 @@
             justify-content: space-around;
             padding-top: 16px;
             border-top: 1px solid var(--md-sys-color-surface-variant);
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--md-sys-color-surface-variant);
         }
 
         .btn-icon {
@@ -372,11 +375,12 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(238, 238, 238, 0.6);
+    background: #fef7ffc7;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     z-index: 10;
+    padding: 33% 1px;
 }
 
 .modal.active {
@@ -386,17 +390,22 @@ h1 {
 #modal-text {
     font-size: 36px;
     margin: 0;
-    color: #222;
     text-shadow: 1px 1px 2px black;
 }
 
+#modal-stats
+{
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px white;
+}
 .btn-back {
     
     background-color: var(--md-sys-color-primary-container);
     color: var(--md-sys-color-on-primary-container);
     border-radius: 12px;
-    width: 48px;
-    height: 36px;
+    width: 60px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -408,7 +417,7 @@ h1 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap; /* Allows wrapping to the next line */
-    gap: 8px;
+    
     margin-bottom: 24px;
     /* 5 buttons (44px) + 4 gaps (12px) = 268px. 
        Setting max-width forces a wrap after 5 items. */
@@ -418,21 +427,15 @@ h1 {
 
 /* Base button styling */
 .level-btn {
-    width: 42px;
-    height: 36px;
-    border: 1px solid lightgray;
-    border-radius: 8px;
+    width: 45px;
+    height: 35px;
+    border: 1px solid white;
+    font-family: "Offside", sans-serif;
     background-color: var(--md-sys-color-primary-container);
     color: #333;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
     position: relative;
-    transition: background-color 0.2s, transform 0.1s;
-}
-
-.level-btn:active {
-    transform: scale(0.95);
 }
 
 /* Highlight the currently selected puzzle */
@@ -440,6 +443,7 @@ h1 {
     background-color: var(--md-sys-color-primary);
     color: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 2;
 }
 
 /* Completed marker badge */
@@ -447,7 +451,7 @@ h1 {
     content: '★';
     position: absolute;
     top: -8px;
-    right: -8px;
+    
     background: white;
     color: gold;
     font-size: 20px;
@@ -457,6 +461,7 @@ h1 {
     text-align: center;
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    z-index: 3;
 }
 
 /* Blocked tile indicators */
@@ -507,11 +512,12 @@ h1 {
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 25px 0;
 }
 
 .theme-btn {
-    padding: 12px 16px;
-    font-size: 14px;
+    padding: 15px 30px;
+    font-size: 15px;
     box-shadow: var(--md-elevation-1);
 }
 
