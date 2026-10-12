@@ -16,9 +16,10 @@ const APP_SHELL = [
   'splash.jpg',
   'favicon.ico',
   'manifest.webmanifest',
-  'icons/icon-192.png',
-  'icons/icon-512.png'
-  // Add your .wav / sound files here, e.g. 'solved.wav'
+  'icon-192.png',
+  'icon.png',
+  'bong.ogg',
+  'win.wav'
 ];
 
 self.addEventListener('install', (event) => {
