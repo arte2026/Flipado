@@ -71,8 +71,8 @@ function renderLevelSelector() {
 function initLevel(levelIndex) {
     gridEl.innerHTML = '';
     tiles = [];
-    const layout = levels[levelIndex];
-
+    const layout =  levels[levelIndex].layout;  
+	const blockedCoords =  levels[levelIndex].blocked || [];
     // Derive every size from the layout itself, so any board shape works
     boardRows = layout.length;
     boardCols = layout[0].length;
@@ -83,7 +83,15 @@ function initLevel(levelIndex) {
     if (!layout.every(row => row.length === boardCols)) {
         console.error(`Level ${levelIndex + 1}: every row must have ${boardCols} values.`);
     }
-
+	blockedCoords.forEach(({ x, y }) => {
+        const inside = x >= 0 && x < gridWidth && y >= 0 && y < gridHeight;
+        const onRing = x === 0 || x === gridWidth - 1 || y === 0 || y === gridHeight - 1;
+        if (!inside) {
+            console.error(`Level ${levelIndex + 1}: blocked tile (${x}, ${y}) is outside the ${gridWidth}x${gridHeight} grid.`);
+        } else if (!onRing) {
+            console.warn(`Level ${levelIndex + 1}: blocked tile (${x}, ${y}) is inside the board. Only outer tiles can be blocked, so it is ignored.`);
+        }
+    });
     // Describe this grid's shape to CSS (inline styles override the old repeat(7, 1fr))
     gridEl.style.gridTemplateColumns = `repeat(${gridWidth}, 1fr)`;
     gridEl.style.gridTemplateRows = `repeat(${gridHeight}, 1fr)`;
@@ -114,11 +122,16 @@ function initLevel(levelIndex) {
             
             const isOuter = x === 0 || x === gridWidth - 1 || y === 0 || y === gridHeight - 1;
             
+            // Check if current coordinate is in the blocked array
+            const isBlocked = isOuter && blockedCoords.some(coord => coord.x === x && coord.y === y);
+            
             if (isOuter) {
                 tile.classList.add('outer');
+                if (isBlocked) {
+                    tile.classList.add('blocked');
+                }
             } else {
                 if (layout[y - 1][x - 1] === 1) {
-                    // Apply 'flipped' instead of 'black' to start the tile on the dark face
                     tile.classList.add('flipped');
                 }
             }
@@ -127,6 +140,7 @@ function initLevel(levelIndex) {
             tile.dataset.x = x;
             tile.dataset.y = y;
             tile.dataset.isOuter = isOuter; 
+            tile.dataset.isBlocked = isBlocked;
 
             gridEl.appendChild(tile);
             tiles.push(tile);
@@ -166,6 +180,8 @@ gridEl.addEventListener('pointermove', (e) => {
 function addTileToPath(tile) {
     const index = parseInt(tile.dataset.index);
     
+	// Prevent dragging through blocked outer tiles
+    if (tile.dataset.isBlocked === "true") return;
     if (currentPath.has(index)) return;
     
     if (currentPath.size > 0) {

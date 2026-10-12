@@ -7,8 +7,10 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>Level 2</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="desktop.css">
 </head>
 
 <body>
@@ -26,13 +28,15 @@
         <!-- Add the level selector here -->
         <div id="level-selector" class="level-selector"></div>
         <div id="grid" class="grid"></div>
-        
-        
-        <!-- Add this modal container -->
-        <div id="modal" class="modal">
-            <h2 id="modal-text"></h2>
-        </div>
+     
     </main>
+	<!-- Add this modal container -->
+        <div id="modal" class="modal">
+            <h1 id="modal-text"></h1>
+            <p id="modal-stats"></p>
+            <button id="modal-reset-btn" class="btn btn-primary" >Try Again</button>
+            <button id="modal-close-btn" class="btn btn-primary" >Go Back</button>
+        </div>
     <p id="status">Make every column one color</p>
     
 </div>
@@ -42,133 +46,134 @@
     // Puzzle layouts
 const levels = [
      // Level 1: Asymmetric challenge
-    [
+{ layout:   [
         [0, 0, 0, 0, 0],
         [1, 1, 0, 1, 1],
         [1, 1, 0, 1, 1],
         [0, 0, 0, 0, 0],
         [0, 1, 0, 1, 0],
         [0, 1, 1, 1, 0]
-    ],
+    ],},
      // Level 1: Asymmetric challenge
-    [
+{  layout:  [
         [0, 0, 1, 0, 0],
         [1, 0, 1, 0, 1],
         [1, 1, 0, 1, 1],
         [0, 0, 0, 0, 0],
         [0, 0, 1, 0, 0],
         [0, 1, 0, 1, 0]
-    ],
+    ],},
      // Level 2: Asymmetric challenge
-    [
+ {  layout: [
         [1,0,1,0,1],
 [0,1,1,0,0],
 [1,1,0,1,0],
 [0,0,1,1,1],
 [1,0,0,0,1],
 [1,1,0,0,1]
-    ],
+    ],},
      // Level 3: Asymmetric challenge
-    [
+{ layout:   [
         [0,1,0,1,0],
 [1,0,1,0,1],
 [1,0,0,1,0],
 [0,1,1,0,1],
 [1,0,1,0,0],
 [0,1,1,0,1]
-    ],
+    ],},
      // Level 4: Asymmetric challenge
-    [
+ { layout:  [
       [1,0,1,0,1],
 [1,1,0,1,0],
 [0,1,0,1,1],
 [1,0,1,1,0],
 [0,1,1,0,1],
 [0,1,0,1,1]
-    ],
+    ],},
     // Level 5: Standard checkerboard-ish
-    [
+ { layout:  [
        [0,1,1,0,1],
 [0,1,0,1,0],
 [1,0,1,0,1],
 [1,0,0,1,1],
 [0,1,1,0,1],
 [1,0,0,0,0]
-    ],
+    ],},
     // Level 6: Horizontal stripes
-    [
+{ layout:   [
        [1,0,1,0,1],
 [0,1,1,0,0],
 [0,1,0,1,1],
 [1,0,1,0,0],
 [1,0,0,1,1],
 [0,1,0,1,1]
-    ],
+    ],},
     // Level 7: Hollow square
-    [
+ { layout:  [
       [0,1,1,1,0],
 [1,0,1,1,0],
 [0,0,1,0,1],
 [1,1,0,1,0],
 [1,0,0,1,1],
 [0,1,0,0,1]
-    ],
+    ],},
     // Level 8: Diagonal cross
-    [
+ {layout:   [
        [1,0,1,0,1],
 [0,1,0,1,1],
 [1,0,1,0,1],
 [1,0,0,1,0],
 [0,1,1,0,1],
 [1,0,1,0,1]
-    ],
+    ],},
     // Level 9: Asymmetric challenge
-    [
+ { layout:   [
       [0,1,0,1,1],
 [1,0,1,0,0],
 [0,1,0,1,1],
 [1,0,1,0,1],
 [0,1,1,0,0],
 [1,0,1,0,1]
-    ],
+    ],},
     // Level 10: Asymmetric challenge
-    [
+ { layout:   [
      [1,0,1,0,1],
 [1,0,0,1,0],
 [0,1,1,0,1],
 [1,1,0,1,0],
 [0,0,1,0,1],
 [1,1,0,0,1]
-    ],
+    ],},
      // Level 11: Asymmetric challenge
-    [
+ { layout:   [
         [0,1,0,1,1],
 [1,0,1,0,0],
 [1,0,0,1,1],
 [0,1,1,0,0],
 [1,0,0,1,1],
 [0,1,1,1,0]
-    ],
+    ],},
     // Level 12: tall 4x6 board 
-    [
+ { layout:  [
        [1,0,1,0,1],
 [0,1,1,0,0],
 [1,0,0,1,1],
 [0,1,1,0,0],
 [1,0,1,0,1],
 [1,0,0,1,0]
-    ],
+    ],},
     // Level 12: tall 4x6 board 
-    [
+ {  layout: [
       [0,1,0,1,1],
 [1,0,1,0,0],
 [0,1,1,0,1],
 [1,0,0,1,1],
 [1,0,1,0,1],
 [0,1,0,1,0]
-    ],
+    ],},
 ];
 </script>
+<script src="progress.js"></script>
 <script src="game2.js" type="text/javascript"></script>
 </body>
 </html>

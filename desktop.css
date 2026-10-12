@@ -1,0 +1,104 @@
+/* Flip-O desktop layer. Load AFTER style.css.
+   Only applies on wide windows, so the Android layout is untouched. */
+
+@media (min-width: 768px) {
+    :root {
+        /* Board size follows the window height so it never needs scrolling */
+        --board-size: min(560px);
+        --panel-width: 680px;
+    }
+
+    body {
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    .menu-container {
+        width: var(--panel-width);
+        max-width: 92vw;
+        max-height: 96vh;
+        padding: 24px 0;
+        gap: 18px;
+    }
+
+    header h1 { font-size: 44px; }
+
+    /* ---- Main menu ---- */
+    .btn-primary { width: 40%; }
+
+    .level-grid {
+        grid-template-columns: repeat(3, 100px);
+        gap: 16px;
+        justify-content: center;
+    }
+    .btn-level { width: 100px; }
+
+    /* ---- Puzzle page ---- */
+    .game {
+        width: var(--board-size);
+        max-width: 100%;
+    }
+    .grid {
+        width: var(--board-size);
+        max-width: 100%;
+    }
+    .level-selector {
+        width: var(--panel-width);
+        max-width: 100%;
+        margin-bottom: 16px;
+    }
+    .level-btn {
+        width: 52px;
+        height: 40px;
+        font-size: 17px;
+    }
+    .level-btn:hover { filter: brightness(0.95); }
+
+    #status { font-size: 15px; }
+
+    /* Mouse feedback on tiles (outer ring and blocked tiles stay neutral) */
+    .tile:not(.outer):not(.blocked) { cursor: pointer; }
+    .tile:not(.outer):not(.blocked):hover .tile-front,
+    .tile:not(.outer):not(.blocked):hover .tile-back {
+        outline: 2px solid var(--md-sys-color-primary);
+        outline-offset: -2px;
+    }
+
+    /* The modal was sized in % of width (built for a phone); on desktop
+       cover the window and center the content instead */
+    .modal {
+        position: fixed;
+        inset: 0;
+        width: auto;
+        height: auto;
+        padding: 24px;
+        gap: 30px;
+        justify-content: center;
+    }
+    .modal .btn-primary { width: 260px; }
+	
+	.settings-card {   
+    padding: 40px 20px;
+    gap: 30px;
+    width: 85vw;
+    max-width: 500px;
+    
+}
+
+}
+
+/* Keyboard users (and mouse users tabbing around) get a visible focus ring */
+.btn:focus-visible,
+.level-btn:focus-visible,
+.btn-back:focus-visible {
+    outline: 3px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+}
+
+/* Very large / 4K windows: let the panel breathe a bit more */
+@media (min-width: 1600px) and (min-height: 1000px) {
+    :root {
+        --board-size: min(680px, calc(100vh - 300px));
+        --panel-width: 720px;
+    }
+}
