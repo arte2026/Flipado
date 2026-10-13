@@ -1,7 +1,7 @@
 {
   "name": "Flip-O - Flip the Tiles",
   "short_name": "Flip-O",
-  "description": "Tile flipping puzzle game. Connect the Path, Solve the Board.",
+  "description": "Spatial reasoning and logic are key to solving the puzzles. Flip the tiles to match the target pattern.",
   "id": "/flip-o/",
   "start_url": "./index.html",
   "scope": "./",
