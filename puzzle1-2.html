@@ -34,52 +34,15 @@
         <div id="modal" class="modal">
             <h1 id="modal-text"></h1>
             <p id="modal-stats"></p>
-            <button id="modal-reset-btn" class="btn btn-primary" >Try Again</button>
+            <button id="modal-reset-btn" class="btn btn-primary" >Try Making <br>Less Moves</button>
             <button id="modal-close-btn" class="btn btn-primary" >Go Back</button>
         </div>
-    <p id="status">Make every column one color</p>
+    <p>Make Every Column ONE Color<br>Empty Tiles with an X are Blocked</p>
     
 </div>
 <script>
     const levels = [
-     // Level 1: Asymmetric challenge
-    {
-     layout:   [
-       [0,1,1,0],
-[1,0,0,1],
-[1,1,0,0],
-[0,1,1,1]
-    ],
-    // Block top-middle and bottom-left outer tiles as seen in the reference
-        blocked: [ {x: 3, y: 0}, {x: 3, y: 5} ] 
-},
-    // Level 2: Asymmetric challenge
-    {
-     layout:   [
-       [1,1,0,1],
-[0,1,1,0],
-[1,0,1,1],
-[0,0,1,0]
-    ],
-},
-    // Level 3: Asymmetric challenge
-    {
-     layout:   [
-        [0,1,1,1],
-[1,0,1,0],
-[1,1,0,1],
-[0,0,1,0]
-    ],
-},
-     // Level 4: Asymmetric challenge
-   { 
-   layout:  [
-        [1,0,1,0],
-[1,1,0,1],
-[0,1,1,0],
-[1,0,0,1]
-    ],
-},
+    
      // Level 5: Asymmetric challenge
     {
         layout: [
@@ -88,7 +51,37 @@
         [0, 0, 1, 0, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0]
-    ],
+    ], blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ]
+},
+// Level 5: Asymmetric challenge
+    {
+        layout: [
+       [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0]
+    ], blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ]
+},
+// Level 5: Asymmetric challenge
+    {
+        layout: [
+       [0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 0],
+        [1, 0, 0, 0, 0]
+    ], blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ]
+},
+// Level 5: Asymmetric challenge
+    {
+        layout: [
+       [1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1]
+    ], blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ]
 },
      // Level 6: Asymmetric challenge
    { 
@@ -217,13 +210,15 @@
      
      // Level 18: Asymmetric challenge
  { 
-    layout:   [
-       [1,0,0,1,1],
-[0,1,1,0,0],
-[1,1,0,1,0],
-[0,0,1,0,1],
-[1,1,0,1,1]
-    ],
+    layout: [
+            [0, 0, 1, 0, 0],
+        [1, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1],
+        [0, 0, 1, 0, 0]
+        ],
+        // Block top-middle and bottom-left outer tiles as seen in the reference
+        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
 },
      
      // Level 19: Asymmetric challenge
@@ -246,6 +241,18 @@
 [1,0,0,1,1],
 [1,1,0,0,1]
     ],
+},
+ // Level 21: Asymmetric challenge
+ {  
+   layout: [
+            [1, 0, 1, 0, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1]
+        ],
+        // Block top-middle and bottom-left outer tiles as seen in the reference
+        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
 },
      
 ];

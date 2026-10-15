@@ -6,83 +6,101 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Level 3-1</title>
-    <link rel="icon" type="image/png" href="favicon.ico">
+    <title>Flip-O 3-1</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="desktop.css">
+    <link rel="stylesheet" href="desktop.css">
+    <link rel="stylesheet" href="shapes.css">
 </head>
 
 <body>
     <div class="menu-container">
-        <header class="header">
+        <header >
             <a href="index.html" class="btn-back">
         <span class="material-symbols-outlined">arrow_back</span>
     </a>
-            <h3>Flip-O lv. 3-1</h3><br>
-            <p>Select a puzzle to play</p>
+            <h3>Flip-O 3-1</h3>
             
         </header>
-        
+        <p>Select a puzzle to play</p>
     
     <main class="game">
-        <!-- Add the level selector here -->
         <div id="level-selector" class="level-selector"></div>
         <div id="grid" class="grid"></div>
         
+        
     </main>
-	<div id="modal" class="modal">
+    <div id="modal" class="modal">
             <h1 id="modal-text"></h1>
             <p id="modal-stats"></p>
-            <button id="modal-reset-btn" class="btn btn-primary" >Try Again</button>
-            <button id="modal-close-btn" class="btn btn-primary" >Go Back</button>
+            <button id="modal-reset-btn" class="btn btn-primary">Try Again</button>
+            <button id="modal-close-btn" class="btn btn-primary">Close</button>
         </div>
-    <p id="status">Make every column one color</p>
+    <p>Make Every ROW the Same SHAPE</p>
     
 </div>
 <script>
-const levels = [
-    {
-        layout: [
-            [1, 0, 1, 0, 1],
-            [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1]
-        ],
-        // Block top-middle and bottom-left outer tiles as seen in the reference
-        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
-    },
-    {
-        layout: [
-            [0, 0, 1, 0, 0],
-        [1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1],
-        [0, 0, 1, 0, 0]
-        ],
-        // Block top-middle and bottom-left outer tiles as seen in the reference
-        blocked: [ {x: 3, y: 0}, {x: 3, y: 6} ] 
-    },
-    // Level 3: tall 4x6 board (a 6x8 grid with the ring). Shows non-square boards work; delete if unwanted.
-    {
-        layout: [
-            [0, 1, 0, 1],
-            [0, 1, 0, 1],
-            [0, 1, 0, 1],
-            [1, 0, 0, 1],
-            [1, 1, 0, 0],
-            [0, 1, 1, 0]
-        ],
-        // Here x runs 0-5 and y runs 0-7
-        blocked: [ {x: 3, y: 0}, {x: 2, y: 7} ]
-    }
-    // You can add more levels here following the same structure
-];
-
+    // Letters: H = dark heart, h = light heart, S = dark star, s = light star.
+    // Flipping a tile swaps heart and star. Goal: each row is all hearts or all stars.
+    const levels = [
+        // Level 1: Sample 1: 3x3
+        {
+            layout: [
+                "Hss",
+                "Hss",
+                "Hss"
+            ]
+        },
+        // Level 2: Sample 2: 3x3
+        {
+            layout: [
+                "sss",
+                "sHs",
+                "HHS"
+            ]
+        },
+        // Level 3: Sample 3: 4x4
+        {
+            layout: [
+                "sHHH",
+                "Hsss",
+                "HssH",
+                "ssHs"
+            ]
+        },
+        // Level 4: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+                "HShS",
+                "ShSs",
+                "HsSs",
+                "hHHH"
+            ]
+        },
+        // Level 5: Sample 5: 4 rows x 5 columns
+        {
+            layout: [
+                "hShHs",
+                "SsSSs",
+                "sHhHh",
+                "HHhHS",
+                "HHhHS"
+            ]
+        },
+        // Level 6: Sample 6: 5x5
+        {
+            layout: [
+                "hhHhH",
+                "hHHHh",
+                "sSSSs",
+                "hsHhh",
+                "sssHs"
+            ]
+        },
+    ];
 </script>
-<script src="progress.js"></script>
-    <script src="game2.js"></script>
+    <script src="progress.js"></script>
+    <script src="game_shapes.js"></script>
 
 </body>
 </html>
