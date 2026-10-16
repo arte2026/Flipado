@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Flip-O 3-1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="desktop.css">
+    <link rel="stylesheet" href="shapes.css">
+</head>
+
+<body>
+    <div class="menu-container">
+        <header >
+            <a href="index.html" class="btn-back">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+            <h3>Flip-O 3-1</h3>
+            
+        </header>
+        <p>Select a puzzle to play</p>
+    
+    <main class="game">
+        <div id="level-selector" class="level-selector"></div>
+        <div id="grid" class="grid"></div>
+        
+        
+    </main>
+    <div id="modal" class="modal">
+            <h1 id="modal-text"></h1>
+            <p id="modal-stats"></p>
+            <button id="modal-reset-btn" class="btn btn-primary">Try Again</button>
+            <button id="modal-close-btn" class="btn btn-primary">Close</button>
+        </div>
+    <p>Make Every ROW the Same SHAPE</p>
+    
+</div>
+<script>
+    // Letters: H = dark heart, h = light heart, S = dark star, s = light star.
+    // Flipping a tile swaps heart and star. Goal: each row is all hearts or all stars.
+    const levels = [
+        // Level 1: Sample 1: 3x3
+        {
+            layout: [
+                "Hss",
+                "Hss",
+                "Hss"
+            ],
+        },
+        // Level 2: Sample 2: 3x3
+        {
+            layout: [
+                "sss",
+                "sHs",
+                "HHs"
+            ],
+        },
+        // Level 3: Sample 3: 4x4
+        {
+            layout: [
+                "sHHH",
+                "Hsss",
+                "HssH",
+                "ssHs"
+            ],
+        },
+        // Level 4: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+                "HsHs",
+                "sHss",
+                "Hsss",
+                "HHHH"
+            ],
+        },
+        // Level 5: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "ssHH",
+    "sssH",
+    "HHss",
+    "HHHs"
+],
+        },
+        // Level 6: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "HssH",
+    "Hsss",
+    "ssHH",
+    "sHHH"
+],
+        },
+        // Level 7: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "HHHs",
+    "HHss",
+    "sHsH",
+    "sssH"
+],
+        },
+        // Level 8: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "Hsss",
+    "HsHH",
+    "ssHH",
+    "sHHH"
+],
+        },
+        // Level 9: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "ssHH",
+    "HssH",
+    "HHss",
+    "HHHs"
+],
+        },
+        // Level 10: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "Hsss",
+    "ssHs",
+    "sHsH",
+    "sssH"
+],
+        },
+        // Level 11: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "HHss",
+    "HHHs",
+    "sHss",
+    "sssH"
+],
+        },
+        // Level 12: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "HHss",
+    "Hsss",
+    "ssHH",
+    "ssHH"
+],
+        },
+        // Level 13: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "sHHH",
+    "sssH",
+    "Hsss",
+    "Hsss"
+],
+        },
+        // Level 14: Sample 4: 4x4 (rebuilt from your screenshot)
+        {
+            layout: [
+    "Hsss",
+    "Hsss",
+    "ssHH",
+    "sHHH"
+],
+        },
+        // Level 15: Sample 5: 4 rows x 5 columns
+        {
+            layout: [
+                "HsHHs",
+                "sssss",
+                "sHHHH",
+                "HHHHs",
+                "HHHHs"
+            ]
+        },
+        // Level 16: Sample 6: 5x5
+        {
+            layout: [
+                "hhHhH",
+                "hHHHh",
+                "sSSSs",
+                "hsHhh",
+                "sssHs"
+            ]
+        },
+    ];
+</script>
+    <script src="progress.js"></script>
+    <script src="game_shapes.js"></script>
+
+</body>
+</html>
