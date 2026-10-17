@@ -6,7 +6,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Flip-O 3-1</title>
+    <title>Flip-O 3-2</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="desktop.css">
@@ -19,7 +19,7 @@
             <a href="index.html" class="btn-back">
         <span class="material-symbols-outlined">arrow_back</span>
     </a>
-            <h3>Flip-O 3-1</h3>
+            <h3>Flip-O 3-2</h3>
             
         </header>
         <p>Select a puzzle to play</p>
@@ -45,147 +45,163 @@
     const levels = [
         // Level 1: Sample 1: 3x3
         {
-            layout: [
-                "Hss",
-                "Hss",
-                "Hss"
-            ],
+            layout:[
+    "ssHHH",
+    "sssHH",
+    "HHsHH",
+    "HHsss",
+    "HHHHs"
+],
         },
         // Level 2: Sample 2: 3x3
         {
             layout: [
-                "sss",
-                "sHs",
-                "HHs"
-            ],
+    "HsHHs",
+    "HHsss",
+    "HssHH",
+    "ssHHH",
+    "ssHHs"
+],
         },
         // Level 3: Sample 3: 4x4
         {
             layout: [
-                "sHHH",
-                "Hsss",
-                "HssH",
-                "ssHs"
-            ],
+    "SHHss",
+    "HhHsH",
+    "HHssH",
+    "sSsHH",
+    "HssHh"
+],
         },
         // Level 4: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-                "HsHs",
-                "sHss",
-                "Hsss",
-                "HHHH"
-            ],
+    "HSHss",
+    "HhHss",
+    "shssH",
+    "ssHhH",
+    "HsHhH"
+],
         },
         // Level 5: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "ssHH",
-    "sssH",
-    "HHss",
-    "HHHs"
+    "HHsSs",
+    "HssHH",
+    "ssHHh",
+    "sSHHH",
+    "sHHsH"
 ],
         },
         // Level 6: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "HssH",
-    "Hsss",
-    "ssHH",
-    "sHHH"
+    "HSHsh",
+    "HHsss",
+    "shsHs",
+    "sSsHs",
+    "shsHH"
 ],
         },
         // Level 7: Sample 4: 4x4 (rebuilt from your screenshot)
         {
-            layout: [
-    "HHHs",
-    "HHss",
-    "sHsH",
-    "sssH"
+            layout:[
+    "shssH",
+    "ssHSH",
+    "HssSH",
+    "HHsHs",
+    "SHssh"
 ],
         },
         // Level 8: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "Hsss",
-    "HsHH",
-    "ssHH",
-    "sHHH"
+    "HSHss",
+    "HhHsh",
+    "HsSsH",
+    "sSssH",
+    "SsHHh"
 ],
         },
         // Level 9: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "ssHH",
-    "HssH",
-    "HHss",
-    "HHHs"
+    "sHsHH",
+    "sssHH",
+    "sshsH",
+    "HsHss",
+    "HHshs"
 ],
         },
         // Level 10: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "Hsss",
-    "ssHs",
-    "sHsH",
-    "sssH"
+    "hHshss",
+    "HssHs",
+    "HssHH",
+    "HssHH",
+    "ssHsH"
 ],
         },
         // Level 11: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "HHss",
-    "HHHs",
-    "sHss",
-    "sssH"
+    "Hhsss",
+    "HssHs",
+    "Hssh",
+    "HssHH",
+    "ssHHH"
 ],
         },
         // Level 12: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "HHss",
-    "Hsss",
-    "ssHH",
-    "ssHH"
+    "Hssss",
+    "HssHs",
+    "HssHh",
+    "HssHs",
+    "shHHS"
 ],
         },
         // Level 13: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "sHHH",
-    "sssH",
-    "Hsss",
-    "Hsss"
+    "SHsss",
+    "HssHs",
+    "HssHH",
+    "HssHH",
+    "sSHHS"
 ],
         },
         // Level 14: Sample 4: 4x4 (rebuilt from your screenshot)
         {
             layout: [
-    "Hsss",
-    "Hsss",
-    "ssHH",
-    "sHHH"
+    "Hshsh",
+    "ssHss",
+    "ssSss",
+    "ssHss",
+    "hshsH"
 ],
         },
         // Level 15: Sample 5: 4 rows x 5 columns
         {
             layout: [
-                "HsHHs",
-                "sssss",
-                "sHHHH",
-                "HHHHs",
-                "HHHHs"
-            ]
+    "sHssH",
+    "sHsSs",
+    "shssH",
+    "Ssssh",
+    "hssSh"
+],
         },
         // Level 16: Sample 6: 5x5
         {
             layout: [
-                "hhHhH",
-                "hHHHh",
-                "sSSSs",
-                "hsHhh",
-                "sssHs"
-            ]
+    "hsSsH",
+    "SsHss",
+    "ssSss",
+    "shhhs",
+    "ssHss"
+],
         },
     ];
 </script>
