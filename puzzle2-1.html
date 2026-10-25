@@ -22,7 +22,7 @@
             <h3>Flip-O lv. 2-1</h3>
             
         </header>
-        <p>Select a puzzle to play</p>
+        <p data-i18n="puzzle">Select a puzzle to play</p>
     
     <main class="game">
         <!-- Add the level selector here -->
@@ -35,9 +35,9 @@
             <h1 id="modal-text"></h1>
             <p id="modal-stats"></p>
             <button id="modal-reset-btn" class="btn btn-primary" >Try Making <br>Less Moves</button>
-            <button id="modal-close-btn" class="btn btn-primary" >Go Back</button>
+            <button id="modal-close-btn" class="btn btn-primary" data-i18n="goback">Go Back</button>
         </div>
-    <p id="status">Make every column one color</p>
+    <p id="status">Make every COLUMN Black or White</p>
     
 </div>
     
@@ -54,7 +54,7 @@ const levels = [
         [0, 1, 0, 1, 0],
         [0, 1, 1, 1, 0]
     ],},
-     // Level 1: Asymmetric challenge
+     // Level 2: Asymmetric challenge
 {  layout:  [
         [0, 0, 1, 0, 0],
         [1, 0, 1, 0, 1],
@@ -63,7 +63,7 @@ const levels = [
         [0, 0, 1, 0, 0],
         [0, 1, 0, 1, 0]
     ],},
-     // Level 2: Asymmetric challenge
+     // Level 3: Asymmetric challenge
  {  layout: [
         [1,0,1,0,1],
 [0,1,1,0,0],
@@ -72,7 +72,7 @@ const levels = [
 [1,0,0,0,1],
 [1,1,0,0,1]
     ],},
-     // Level 3: Asymmetric challenge
+     // Level 4: Asymmetric challenge
 { layout:   [
         [0,1,0,1,0],
 [1,0,1,0,1],
@@ -81,7 +81,7 @@ const levels = [
 [1,0,1,0,0],
 [0,1,1,0,1]
     ],},
-     // Level 4: Asymmetric challenge
+     // Level 5: Asymmetric challenge
  { layout:  [
       [1,0,1,0,1],
 [1,1,0,1,0],
@@ -90,7 +90,7 @@ const levels = [
 [0,1,1,0,1],
 [0,1,0,1,1]
     ],},
-    // Level 5: Standard checkerboard-ish
+    // Level 6: Standard checkerboard-ish
  { layout:  [
        [0,1,1,0,1],
 [0,1,0,1,0],
@@ -99,7 +99,7 @@ const levels = [
 [0,1,1,0,1],
 [1,0,0,0,0]
     ],},
-    // Level 6: Horizontal stripes
+    // Level 7: Horizontal stripes
 { layout:   [
        [1,0,1,0,1],
 [0,1,1,0,0],
@@ -108,7 +108,7 @@ const levels = [
 [1,0,0,1,1],
 [0,1,0,1,1]
     ],},
-    // Level 7: Hollow square
+    // Level 8: Hollow square
  { layout:  [
       [0,1,1,1,0],
 [1,0,1,1,0],
@@ -117,7 +117,7 @@ const levels = [
 [1,0,0,1,1],
 [0,1,0,0,1]
     ],},
-    // Level 8: Diagonal cross
+    // Level 9: Diagonal cross
  {layout:   [
        [1,0,1,0,1],
 [0,1,0,1,1],
@@ -126,7 +126,7 @@ const levels = [
 [0,1,1,0,1],
 [1,0,1,0,1]
     ],},
-    // Level 9: Asymmetric challenge
+    // Level 10: Asymmetric challenge
  { layout:   [
       [0,1,0,1,1],
 [1,0,1,0,0],
@@ -135,7 +135,7 @@ const levels = [
 [0,1,1,0,0],
 [1,0,1,0,1]
     ],},
-    // Level 10: Asymmetric challenge
+    // Level 11: Asymmetric challenge
  { layout:   [
      [1,0,1,0,1],
 [1,0,0,1,0],
@@ -144,7 +144,7 @@ const levels = [
 [0,0,1,0,1],
 [1,1,0,0,1]
     ],},
-     // Level 11: Asymmetric challenge
+     // Level 12: Asymmetric challenge
  { layout:   [
         [0,1,0,1,1],
 [1,0,1,0,0],
@@ -153,7 +153,7 @@ const levels = [
 [1,0,0,1,1],
 [0,1,1,1,0]
     ],},
-    // Level 12: tall 4x6 board 
+    // Level 13: tall 4x6 board 
  { layout:  [
        [1,0,1,0,1],
 [0,1,1,0,0],
@@ -162,7 +162,7 @@ const levels = [
 [1,0,1,0,1],
 [1,0,0,1,0]
     ],},
-    // Level 12: tall 4x6 board 
+    // Level 14: tall 4x6 board 
  {  layout: [
       [0,1,0,1,1],
 [1,0,1,0,0],
@@ -216,7 +216,7 @@ const levels = [
 [1,1,1,1,1],
 [0,1,1,1,1]
     ],},
-     // Level 12: tall 4x6 board 
+     // Level 20: tall 4x6 board 
  {  layout: [
       [0,1,1,1,0],
 [1,1,1,1,1],

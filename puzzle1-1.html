@@ -22,25 +22,23 @@
             <h3>Flip-O lv. 1-1</h3>
             
         </header>
-        <p>Select a puzzle to play</p>
+        <p data-i18n="puzzle">Select a puzzle to play</p>
     
     <main class="game">
         <!-- Add the level selector here -->
         <div id="level-selector" class="level-selector"></div>
         <div id="grid" class="grid"></div>
         
-        
-        
     </main>
     <!-- Add this modal container -->
         <div id="modal" class="modal">
             <h1 id="modal-text"></h1>
             <p id="modal-stats"></p>
-            <button id="modal-reset-btn" class="btn btn-primary" >Try Making<br> Less Moves</button>
-            <button id="modal-close-btn" class="btn btn-primary" >Go Back</button>
+            <button id="modal-reset-btn" class="btn btn-primary" data-i18n="victory">Try Making<br> Less Moves</button>
+            <button id="modal-close-btn" class="btn btn-primary" data-i18n="goback">Go Back</button>
            
         </div>
-    <p>Make Every Column ONE Color<br>Use the Empty Tiles to Move Around</p>
+    <p data-i18n="puzzle2">Make Every COLUMN Black or White<br>Use the Empty Tiles to Move Around</p>
 </div>
 <script>
     const levels = [
@@ -320,6 +318,6 @@
 </script>
     <script src="progress.js"></script>
     <script src="game2.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>

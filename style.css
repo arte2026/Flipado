@@ -275,7 +275,7 @@ h1 {
     max-width: 420px;
     aspect-ratio: 1 / 1;
     border: 1px solid lightgray;
-    
+    box-shadow: var(--md-elevation-1);
     display: grid;
     grid-template-columns: repeat(7, 1fr); /* Changed from 5 to 7 */
     grid-template-rows: repeat(7, 1fr);    /* Changed from 5 to 7 */
@@ -319,7 +319,7 @@ h1 {
 /* Front is white (0 degrees) */
 .tile-front {
     background: rgb(255, 255, 255);
-    border-radius: 30px;
+    border-radius: 15px;
     border: 1px solid #e3e3e3;
 }
 
@@ -329,12 +329,13 @@ h1 {
     transform: rotateY(180deg); 
     border-radius: 5px;
     box-shadow: var(--md-elevation-1);
+    border: 1px solid black;
 }
 
 /* Ensure outer tiles are transparent */
 .tile.outer .tile-face {
     background: #00000000;
-    border-radius: 18px;
+    border-radius: 40px;
     border: 1px dashed #afafaf;
 }
 
@@ -533,6 +534,7 @@ h1 {
     padding: 15px 30px;
     font-size: 15px;
     box-shadow: var(--md-elevation-1);
+    color: white;
 }
 
 /* Tutorial modal (opened from the Play Tutorial button) */
