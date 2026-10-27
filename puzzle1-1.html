@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
     <meta charset="UTF-8">
     <meta
@@ -23,10 +23,10 @@
             
         </header>
         <p data-i18n="puzzle">Select a puzzle to play</p>
-    
+     <div id="level-selector" class="level-selector"></div>
     <main class="game">
         <!-- Add the level selector here -->
-        <div id="level-selector" class="level-selector"></div>
+       
         <div id="grid" class="grid"></div>
         
     </main>
@@ -42,17 +42,7 @@
 </div>
 <script>
     const levels = [
-     // Level 1: Asymmetric challenge
-    {
-         layout: [
-        
-        [1, 1, 1],
-        [0, 0, 0],
-        [1, 1, 1]
-		
-    ],
-	
-	},
+    
      // Level 2: Asymmetric challenge
      {
         layout:
@@ -73,15 +63,7 @@
         [0, 0, 1]
     ],
     },
-     // Level 4: Asymmetric challenge
-    {
-        layout:
-        [
-        [1, 1, 0,],
-        [0, 1, 0,],
-        [1, 0, 1]
-    ],
-},
+    
      // Level 5: Asymmetric challenge
     {
         layout:
@@ -195,15 +177,7 @@
         [0,1,0,0]
     ],
 },
-     // Level 18: Asymmetric challenge
-   {layout: [
-       [0,0,0,0],
-        [0,1,0,1],
-        [1,0,1,0],
-        [0,1,0,1]
-    ],
     
-},
 // Level 19
 {layout: [
        [1,0,0,1],
@@ -213,15 +187,7 @@
     ],
     
 },
-// Level 20
-{layout: [
-       [0,1,1,0],
-        [1,0,0,1],
-        [1,0,1,0],
-        [0,1,0,1]
-    ],
-    
-},
+
 // Level 21
 {layout: [
        [0,0,1,0],
@@ -259,13 +225,13 @@
 [0,0,1,0]
     ],
 },
-     // Level 25
+  // Level 27
    { 
    layout:  [
         [1,0,1,0],
-[1,1,0,1],
-[0,1,1,0],
-[1,0,0,1]
+[0,1,0,1],
+[1,1,0,0],
+[1,0,1,1]
     ],
 },
  // Level 26
@@ -277,47 +243,11 @@
 [1,1,0,1]
     ],
 },
-// Level 27
-   { 
-   layout:  [
-        [1,0,1,0],
-[0,1,0,1],
-[1,1,0,0],
-[1,0,1,1]
-    ],
-},
-// Level 28
-   { 
-   layout:  [
-        [1,0,0,1],
-[0,0,1,0],
-[1,0,0,1],
-[1,1,0,1]
-    ],
-},
-// Level 29
-   { 
-   layout:  [
-        [1,0,0,0],
-[0,1,0,1],
-[0,1,0,1],
-[1,0,0,0]
-    ],
-},
-// Level 30
-   { 
-   layout:  [
-       [1, 1, 0, 0],
-    [1, 1, 1, 0],
-    [0, 0, 1, 1],
-    [1, 0, 0, 1]
-    ],
-},
-    
 ];
 </script>
     <script src="progress.js"></script>
+    <script src="script.js"></script>
     <script src="game2.js"></script>
-<script src="script.js"></script>
+
 </body>
 </html>

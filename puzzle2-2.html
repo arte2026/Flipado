@@ -23,20 +23,20 @@
             
         </header>
         <p data-i18n="puzzle">Select a puzzle to play</p>
-    
-    <main class="game">
-        <!-- Add the level selector here -->
+     <!-- Add the level selector here -->
         <div id="level-selector" class="level-selector"></div>
+    <main class="game">
+       
         <div id="grid" class="grid"></div>
         
     </main>
 	<div id="modal" class="modal">
             <h1 id="modal-text"></h1>
             <p id="modal-stats"></p>
-            <button id="modal-reset-btn" class="btn btn-primary" >Try Making <br>Less Moves</button>
+            <button id="modal-reset-btn" class="btn btn-primary" data-i18n="victory">Try Making <br>Less Moves</button>
             <button id="modal-close-btn" class="btn btn-primary" data-i18n="goback">Go Back</button>
         </div>
-    <p id="status">Make every COLUMN Black or White</p>
+    <p data-i18n="puzzle4">Make every COLUMN Black or White</p>
     
 </div>
     
@@ -248,5 +248,6 @@ const levels = [
 </script>
 <script src="progress.js"></script>
 <script src="game2.js" type="text/javascript"></script>
+<script src="script.js"></script>
 </body>
 </html>

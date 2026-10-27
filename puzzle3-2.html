@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="desktop.css">
     <link rel="stylesheet" href="shapes.css">
+    
 </head>
 
 <body>
@@ -19,13 +20,13 @@
             <a href="index.html" class="btn-back">
         <span class="material-symbols-outlined">arrow_back</span>
     </a>
-            <h3>Flip-O 3-2</h3>
+            <h3>Flip-O lv. 3-2</h3>
             
         </header>
         <p data-i18n="puzzle">Select a puzzle to play</p>
-    
+     <div id="level-selector" class="level-selector"></div>
     <main class="game">
-        <div id="level-selector" class="level-selector"></div>
+       
         <div id="grid" class="grid"></div>
         
         
@@ -33,12 +34,13 @@
     <div id="modal" class="modal">
             <h1 id="modal-text"></h1>
             <p id="modal-stats"></p>
-            <button id="modal-reset-btn" class="btn btn-primary">Try Again</button>
+            <button id="modal-reset-btn" class="btn btn-primary" data-i18n="victory">Try Again</button>
             <button id="modal-close-btn" class="btn btn-primary" data-i18n="goback">Close</button>
         </div>
     <p data-i18n="row">Make Every ROW the Same SHAPE</p>
     
 </div>
+
 <script>
     // Letters: H = dark heart, h = light heart, S = dark star, s = light star.
     // Flipping a tile swaps heart and star. Goal: each row is all hearts or all stars.
@@ -206,7 +208,10 @@
     ];
 </script>
     <script src="progress.js"></script>
-    <script src="game_shapes.js"></script>
+    
+    <script src="game_shapes2.js"></script>
+    
+<script src="script.js"></script>
 
 </body>
 </html>

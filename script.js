@@ -67,9 +67,6 @@ if (statsBtn) {
     });
 })();
 
- if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
-  }
 
  //traduccion
 const translations = {
@@ -87,7 +84,7 @@ close: "Cerrar",
 puzzle: "Selecciona un acertijo para jugar",
 victory: "Intenta realizar<br> menos movimientos",
 goback: "Volver",
-puzzle2: "Haz que cada COLUMNA sea negra o blanca<br>Usa las casillas vacías para desplazarte",
+puzzle2: "Haz cada Columna color Blanco o Negro<br> Usa el exterior para moverte",
 tuto2: "Cómo jugar",
 tuto3: "Traza un camino",
 tuto4: "Mueve el dedo alrededor",
@@ -104,8 +101,17 @@ tuto14: "Ganas cuando cada columna",
 tuto15: "es de un solo color: negro",
 tuto16: "o blanco.",
 tuto17: "Un trazo por intento. Si fallas se reinicia.",
-puzzle3: "Haz que cada COLUMNA sea negra o blanca<br>Las casillas vacías con una «X» están bloqueadas",
-row: "Haz que cada FILA tenga la misma FORMA: estrella o corazón",
+puzzle3: "Haz cada Columna del mismo Color<br>Las casillas vacías con una «X» están bloqueadas",
+puzzle4: "Haz cada Columna del mismo Color",
+row: "Haz que cada FILA tenga la misma FORMA: Estrella o Corazón",
+win: "¡Completado! - Buen trabajo ⭐",
+fail: "Inténtalo de nuevo - Haz cada columna de UN solo color",
+moves: "Total de movimientos",
+fail2: "Inténtalo de nuevo - Haz cada Fila de una sola Forma",
+mixed: "Paso 1: Haz que todas las columnas tengan la misma forma<br>Paso 2: Haz que cada fila sea de un solo color",
+ fail3: "Intentalo de nuevo",
+ paso1: "✔ Paso 1",
+ paso2: "Continua con Paso 2",
   },
 
   en: {
@@ -140,9 +146,24 @@ tuto15: "is a single color, black",
 tuto16: "or white.",
 tuto17: "One stroke per try. Not solved? It resets.",
 puzzle3: "Make Every COLUMN Black or White<br>Empty Tiles with an X are Blocked",
+puzzle4: "Make Every COLUMN Black or White",
     row: "Make Every ROW the Same SHAPE, Star or Heart",
+    win: "Completed! - Great Job ⭐",
+fail: "Try Again - Make Every Column ONE Color",
+moves: "Total moves",
+    fail2: "Try Again - Make Every Row ONE Shape",
+    mixed: "Step 1: Make Every Column Same Shape<br>Step 2: Make Every Row One Color",
+    fail3: "Try Again",
+    paso1: "✔ Step 1",
+ paso2: "Continue with Step 2",
   }
 };
+
+function t(key) {
+  return (translations[currentLang] && translations[currentLang][key])
+      || translations.en[key]
+      || "";
+}
 
 function setLanguage(lang) {
   currentLang = lang;
@@ -185,3 +206,7 @@ function initLanguage() {
 }
 
 initLanguage();
+
+ if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+  }

@@ -30,6 +30,7 @@
         grid-template-columns: repeat(3, 100px);
         gap: 16px;
         justify-content: center;
+       
     }
     .btn-level { width: 100px; }
 
@@ -46,6 +47,7 @@
         width: var(--panel-width);
         max-width: 100%;
         margin-bottom: 16px;
+         padding: 0px 30px;
     }
     .level-btn {
         width: 52px;
