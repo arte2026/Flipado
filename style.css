@@ -318,7 +318,7 @@ h1 {
 
 /* Front is white (0 degrees) */
 .tile-front {
-    background: rgb(255, 255, 255);
+    background: rgb(255, 255, 248);
     border-radius: 15px;
     border: 1px solid #e3e3e3;
 }
@@ -433,9 +433,6 @@ h1 {
     justify-content: center;
     flex-wrap: wrap; /* Allows wrapping to the next line */
     
-    margin-bottom: 24px;
-    /* 5 buttons (44px) + 4 gaps (12px) = 268px. 
-       Setting max-width forces a wrap after 5 items. */
     width: 95vw;
     max-width: 410px;
 }

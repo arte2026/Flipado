@@ -22,13 +22,36 @@
             <h3>Flip-O lv. 1-1</h3>
             
         </header>
-        <p data-i18n="puzzle">Select a puzzle to play</p>
-     <div id="level-selector" class="level-selector"></div>
-    <main class="game">
         <!-- Add the level selector here -->
-       
-        <div id="grid" class="grid"></div>
+        <p data-i18n="puzzle">Select a puzzle to play</p>
         
+     <div id="level-selector" class="level-selector"></div>
+
+    <main class="game">
+        
+        <div id="grid" class="grid"></div>
+
+        <div style="width: 100%; height: 20px;  display: flex;">
+
+            <div class="colarrow"></div>
+
+ <div class="colarrow"><span class="material-symbols-outlined">
+keyboard_double_arrow_up
+</span></div>
+       
+         <div class="colarrow"><span class="material-symbols-outlined">
+keyboard_double_arrow_up
+</span></div>
+     <div class="colarrow"><span class="material-symbols-outlined">
+keyboard_double_arrow_up
+</span></div>
+     <div class="colarrow"><span class="material-symbols-outlined">
+keyboard_double_arrow_up
+</span></div>
+
+    <div class="colarrow"></div>
+
+     </div>
     </main>
     <!-- Add this modal container -->
         <div id="modal" class="modal">
@@ -38,8 +61,147 @@
             <button id="modal-close-btn" class="btn btn-primary" data-i18n="goback">Go Back</button>
            
         </div>
-    <p data-i18n="puzzle2">Make Every COLUMN Black or White<br>Use the Empty Tiles to Move Around</p>
+
+    <button type="button" id="tutorial-btn" aria-haspopup="dialog" class="btn btn-primary"  style="padding: 0; margin:0; width: 30%; "  data-i18n="tutorial">
+            See Tutorial
+        </button>
 </div>
+ <!-- Settings Modal -->
+<div id="settings-modal" class="tutorial-modal" role="dialog" aria-modal="true" aria-label="Settings" hidden>
+    <div class="settings-card">
+        <h2 style="color: var(--md-sys-color-primary);" data-i18n="theme">Select Theme</h2>
+        <div class="theme-options">
+            <button class="btn theme-btn" data-theme="theme-default" style="background: #6750A4" data-i18n="color1">Purple</button>
+            <button class="btn theme-btn" data-theme="theme-ocean" style="background: #589951" data-i18n="color2">Green</button>
+            <button class="btn theme-btn" data-theme="theme-forest" style="background: #997551" data-i18n="color3">Brown</button>
+        </div>
+        <button type="button" id="settings-close" class="btn btn-primary tutorial-close" data-i18n="close">Close</button>
+        <p style="margin-top: 100px; text-align: center;" data-i18n="android">*Flip-O is also available for Android devices in the Google Play Store.</p>
+    </div>
+</div>
+
+<!-- Tutorial: opened by the Play Tutorial button -->
+    <div id="tutorial-modal" class="tutorial-modal" role="dialog" aria-modal="true" aria-label="How to play" hidden>
+        <div class="tutorial-card">
+<svg class="tutorial-img" viewBox="0 0 360 600" role="img" aria-labelledby="tutorial-title">
+<title id="tutorial-title">How to play Flip-O: four rules and a reminder</title>
+<defs><rect id="c14" width="14" height="14" rx="3"/><rect id="c22" width="22" height="22" rx="5"/><rect id="c18" width="18" height="18" rx="4"/></defs>
+<rect width="360" height="600" rx="24" fill="#FEF7FF"/>
+<text x="180" y="46" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="22" font-weight="700" fill="#6750A4" data-i18n="tuto2">How to play</text>
+<rect x="16" y="70" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="96" r="12" fill="#6750A4"/>
+<text x="38" y="101" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">1</text>
+<text x="58" y="101" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20" data-i18n="tuto3">Swipe a path</text>
+<text x="24" y="128" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto4">Drag across touching tiles.</text>
+<text x="24" y="145" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto5">A path can't cross itself.</text>
+<rect x="238" y="78" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<rect x="16" y="188" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="214" r="12" fill="#6750A4"/>
+<text x="38" y="219" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">2</text>
+<text x="58" y="219" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20" data-i18n="tuto6">Tiles flip</text>
+<text x="24" y="246" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto7">Every board tile you touch</text>
+<text x="24" y="263" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto8">switches color.</text>
+<rect x="238" y="196" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<rect x="16" y="306" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="332" r="12" fill="#6750A4"/>
+<text x="38" y="337" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">3</text>
+<text x="58" y="337" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20" data-i18n="tuto9">The ring is free</text>
+<text x="24" y="364" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto10">Dotted tiles around the</text>
+<text x="24" y="381" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto11">board never flip. Use them</text>
+<text x="24" y="398" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto12">to travel.</text>
+<rect x="238" y="314" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<rect x="16" y="424" width="328" height="106" rx="16" fill="#F3EDF7"/>
+<circle cx="38" cy="450" r="12" fill="#6750A4"/>
+<text x="38" y="455" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">4</text>
+<text x="58" y="455" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1B20" data-i18n="tuto13">Make columns match</text>
+<text x="24" y="482" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto14">You win when every column</text>
+<text x="24" y="499" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto15">is a single color, black</text>
+<text x="24" y="516" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#49454F" data-i18n="tuto16">or white.</text>
+<rect x="238" y="432" width="96" height="90" rx="12" fill="#E8DEF8"/>
+<g fill="none" stroke="#9A8FBD" stroke-width="1" stroke-dasharray="2 2">
+<use href="#c14" x="247" y="84"/>
+<use href="#c14" x="263" y="84"/>
+<use href="#c14" x="279" y="84"/>
+<use href="#c14" x="295" y="84"/>
+<use href="#c14" x="311" y="84"/>
+<use href="#c14" x="247" y="100"/>
+<use href="#c14" x="311" y="100"/>
+<use href="#c14" x="247" y="116"/>
+<use href="#c14" x="311" y="116"/>
+<use href="#c14" x="247" y="132"/>
+<use href="#c14" x="311" y="132"/>
+<use href="#c14" x="247" y="148"/>
+<use href="#c14" x="263" y="148"/>
+<use href="#c14" x="279" y="148"/>
+<use href="#c14" x="295" y="148"/>
+<use href="#c14" x="311" y="148"/>
+</g>
+<use href="#c14" x="263" y="100" fill="#222222"/>
+<use href="#c14" x="279" y="100" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="100" fill="#222222"/>
+<use href="#c14" x="263" y="116" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="279" y="116" fill="#222222"/>
+<use href="#c14" x="295" y="116" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="263" y="132" fill="#222222"/>
+<use href="#c14" x="279" y="132" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="132" fill="#222222"/>
+<polyline points="254,123 270,123 286,123 302,123 318,123" fill="none" stroke="#FFB300" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+<circle cx="254" cy="123" r="4.5" fill="#FEF7FF" stroke="#FFB300" stroke-width="2"/>
+<use href="#c22" x="250" y="204" fill="#222222"/>
+<use href="#c22" x="276" y="204" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c22" x="302" y="204" fill="#222222"/>
+<g fill="none" stroke="#6750A4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="288" y1="232" x2="288" y2="246"/><polyline points="283,241 288,247 293,241"/></g>
+<use href="#c22" x="250" y="254" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c22" x="276" y="254" fill="#222222"/>
+<use href="#c22" x="302" y="254" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<g fill="none" stroke="#9A8FBD" stroke-width="1" stroke-dasharray="2 2">
+<use href="#c14" x="247" y="320"/>
+<use href="#c14" x="263" y="320"/>
+<use href="#c14" x="279" y="320"/>
+<use href="#c14" x="295" y="320"/>
+<use href="#c14" x="311" y="320"/>
+<use href="#c14" x="247" y="336"/>
+<use href="#c14" x="311" y="336"/>
+<use href="#c14" x="247" y="352"/>
+<use href="#c14" x="311" y="352"/>
+<use href="#c14" x="247" y="368"/>
+<use href="#c14" x="311" y="368"/>
+<use href="#c14" x="247" y="384"/>
+<use href="#c14" x="263" y="384"/>
+<use href="#c14" x="279" y="384"/>
+<use href="#c14" x="295" y="384"/>
+<use href="#c14" x="311" y="384"/>
+</g>
+<use href="#c14" x="263" y="336" fill="#222222"/>
+<use href="#c14" x="279" y="336" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="336" fill="#222222"/>
+<use href="#c14" x="263" y="352" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="279" y="352" fill="#222222"/>
+<use href="#c14" x="295" y="352" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="263" y="368" fill="#222222"/>
+<use href="#c14" x="279" y="368" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c14" x="295" y="368" fill="#222222"/>
+<polyline points="254,327 270,327 286,327 302,327 318,327 318,343 318,359" fill="none" stroke="#FFB300" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+<circle cx="254" cy="327" r="4.5" fill="#FEF7FF" stroke="#FFB300" stroke-width="2"/>
+<circle cx="268" cy="444" r="4.5" fill="#FFB300"/>
+<use href="#c18" x="259" y="455" fill="#222222"/>
+<use href="#c18" x="259" y="476" fill="#222222"/>
+<use href="#c18" x="259" y="497" fill="#222222"/>
+<circle cx="289" cy="444" r="4.5" fill="#FFB300"/>
+<use href="#c18" x="280" y="455" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c18" x="280" y="476" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<use href="#c18" x="280" y="497" fill="#FFFFFF" stroke="#CAC4D0" stroke-width="1"/>
+<circle cx="310" cy="444" r="4.5" fill="#FFB300"/>
+<use href="#c18" x="301" y="455" fill="#222222"/>
+<use href="#c18" x="301" y="476" fill="#222222"/>
+<use href="#c18" x="301" y="497" fill="#222222"/>
+<rect x="16" y="542" width="328" height="44" rx="14" fill="#EADDFF"/>
+<text x="180" y="569" text-anchor="middle" font-family="Offside,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#21005D" data-i18n="tuto17">One stroke per try. Not solved? It resets.</text>
+</svg>
+            <button type="button" id="tutorial-close" class="btn btn-primary tutorial-close">OK</button>
+        </div>
+    </div>
+
 <script>
     const levels = [
     
@@ -48,9 +210,10 @@
         layout:
     [
         
-        [1, 0, 1],
-        [0, 1, 0],
-        [0, 1, 0]
+        [1, 0, 1, 0],
+        [0, 1, 0, 1],
+        [0, 1, 0, 1],
+        [0, 1, 0, 1],
     ],
 },
      // Level 3: Asymmetric challenge
@@ -58,9 +221,10 @@
         layout:
     [
        
-        [1, 1, 0],
-        [1, 1, 0],
-        [0, 0, 1]
+        [1, 1, 0, 0],
+        [1, 1, 0, 0],
+        [1, 1, 0, 0],
+        [0, 0, 1, 1],
     ],
     },
     
