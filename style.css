@@ -220,12 +220,9 @@ a {
         /* Stars for completed levels */
         .stars {
             display: flex;
-            gap: 2px;
-            color: #FFB400; /* Distinct warning/star color */
-        }
-        
-        .stars .material-symbols-outlined {
-            font-size: 14px;
+            gap: 15px;
+            color: black; /* Distinct warning/star color */
+            font-size: 40px;
         }
 
         /* Bottom Actions (Settings, Achievements) */
