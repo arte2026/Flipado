@@ -3,7 +3,7 @@
    To switch the effect off, remove the <link> to this file. */
 
 :root {
-    --chip-radius: 18%;            /* 50% = round discs, 12% = square-ish chips */
+    --chip-radius: 30%;            /* 50% = round discs, 12% = square-ish chips */
     --chip-thickness: 1px;         /* how "tall" the chip edge looks */
     --chip-flip-time: 340ms;
 
