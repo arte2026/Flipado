@@ -24,7 +24,6 @@
     header h1 { font-size: 44px; }
 
     /* ---- Main menu ---- */
-    .btn-primary { width: 40%; }
 
     .level-grid {
         grid-template-columns: repeat(3, 100px);
@@ -46,7 +45,8 @@
     .level-selector {
         width: var(--panel-width);
         max-width: 100%;
-         padding: 0px 30px;
+         padding: 5px 1px;
+         margin-bottom: 10px;
     }
     .level-btn {
         width: 52px;

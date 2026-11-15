@@ -1,0 +1,127 @@
+/* Flip-O "plastic chip" look. Load AFTER style.css and desktop.css.
+   Only the playable tiles are styled; the dotted outer ring is untouched.
+   To switch the effect off, remove the <link> to this file. */
+
+:root {
+    --chip-radius: 18%;            /* 50% = round discs, 12% = square-ish chips */
+    --chip-thickness: 1px;         /* how "tall" the chip edge looks */
+    --chip-flip-time: 340ms;
+
+    --white-hi: #ffffff;
+    --white-mid: #f1eef6;
+    --white-lo: #d9d5e2;
+    --white-edge: #aaa4b8;
+
+    --black-hi: #5b5b60;
+    --black-mid: #343437;
+    --black-lo: #1b1b1d;
+    --black-edge: #090909;
+}
+
+/* The tray the chips sit in */
+.grid {
+    border-radius: 15px;
+    box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.18),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Springy flip: slight overshoot, then settles */
+.tile:not(.outer) .tile-inner {
+    transition: transform var(--chip-flip-time) cubic-bezier(0.34, 1.45, 0.5, 1);
+}
+
+/* Shared chip body */
+.tile:not(.outer) .tile-face {
+    border-radius: var(--chip-radius);
+    overflow: visible;
+}
+
+/* ---- White chip (front) ---- */
+.tile:not(.outer) .tile-front {
+    background: radial-gradient(circle at 30% 25%, var(--white-hi) 0%, var(--white-mid) 45%, var(--white-lo) 100%);
+    border: 1px solid #e6e2ec;
+    box-shadow:
+        inset 0 2px 2px rgba(255, 255, 255, 0.9),
+        inset 0 -3px 4px rgba(0, 0, 0, 0.14),
+        0 var(--chip-thickness) 0 var(--white-edge),
+        0 calc(var(--chip-thickness) + 3px) 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- Black chip (back) ---- */
+.tile:not(.outer) .tile-back {
+    background: radial-gradient(circle at 30% 25%, var(--black-hi) 0%, var(--black-mid) 45%, var(--black-lo) 100%);
+    border: 1px solid #0f0f10;
+    box-shadow:
+        inset 0 2px 2px rgba(255, 255, 255, 0.22),
+        inset 0 -3px 5px rgba(0, 0, 0, 0.55),
+        0 var(--chip-thickness) 0 var(--black-edge),
+        0 calc(var(--chip-thickness) + 3px) 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Concave ring in the middle, like a moulded chip */
+.tile:not(.outer) .tile-face::before {
+    content: '';
+    position: absolute;
+    top: 16%;
+    right: 16%;
+    bottom: 16%;
+    left: 16%;
+    border-radius: var(--chip-radius);
+    pointer-events: none;
+}
+.tile:not(.outer) .tile-front::before {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18), 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.tile:not(.outer) .tile-back::before {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Glossy highlight on the top part */
+.tile:not(.outer) .tile-face::after {
+    content: '';
+    position: absolute;
+    top: 6%;
+    right: 12%;
+    bottom: 55%;
+    left: 12%;
+    border-radius: 50% / 70%;
+    pointer-events: none;
+}
+.tile:not(.outer) .tile-front::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+}
+.tile:not(.outer) .tile-back::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+}
+
+/* Gold ring for tiles touched in the current stroke (keeps the chip look) */
+.tile.highlight .tile-face {
+    border: 2px solid #FFC83D;
+}
+
+/* Lift when a chip is flipped. Add the "pop" class from game2.js (see notes). */
+.tile.pop {
+    position: relative;
+    z-index: 2;
+    animation: chipPop 320ms ease-out;
+}
+@keyframes chipPop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.14) translateY(-3px); }
+    100% { transform: scale(1); }
+}
+
+/* Respect "reduce motion" settings */
+@media (prefers-reduced-motion: reduce) {
+    .tile:not(.outer) .tile-inner { transition-duration: 1ms; }
+    .tile.pop { animation: none; }
+}
+
+/* Lite mode for slow devices: add class "fx-lite" to <body> to drop the gloss layers */
+body.fx-lite .tile:not(.outer) .tile-face::before,
+body.fx-lite .tile:not(.outer) .tile-face::after {
+    display: none;
+}
+body.fx-lite .tile:not(.outer) .tile-face {
+    box-shadow: 0 var(--chip-thickness) 0 rgba(0, 0, 0, 0.35);
+}

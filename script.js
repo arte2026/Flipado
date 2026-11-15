@@ -72,9 +72,9 @@ if (statsBtn) {
 const translations = {
   es: {
    title: "Razonamiento Espacial",
-tutorial: '🎓 Ver tutorial',
+tutorial: '🎓 Tutorial',
 level: "Selecciona nivel",
-settings: "💡 Configuración",
+settings: "Configuración",
 theme: "Selecciona tema",
 color1: "Morado",
 color2: "Verde",
@@ -115,9 +115,9 @@ mixed: "Paso 1: Haz que todas las columnas tengan la misma forma<br>Paso 2: Haz 
 
   en: {
     title: "Spatial Reasoning Puzzles",
-    tutorial: '🎓 See Tutorial',
+    tutorial: '🎓 Tutorial',
     level: "Select Level",
-    settings: "💡 Settings",
+    settings: "Settings",
   	theme: "Select Theme",
     color1: "Purple",
     color2: "Green",

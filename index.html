@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Spatial reasoning and logic are key to solving the puzzles. Flip the tiles to match the target pattern.">
-  <meta name="keywords" content="Juegos, Educativo, Memorama, Rompecabezas, Puzzle, Games, Flip Grid, Flip Grid Game, Spatial reasoning, Logic, Brain Training, Flip-O, Flip-O Game, Flip-O Puzzle, Flip-O App, Flip-O Android, Flip-O iOS">
+  <meta name="keywords" content="Juegos, Educativo, Memorama, Rompecabezas, Puzzle, Games, Flip Grid, Flip Grid Game, Spatial reasoning, Logic, Brain Training, Flip-O, Flip-O Game, Flip-O Puzzle, Flip-O App, Flip-O Android, Flip-O PC, Flip-O Web, Flip-O HTML5, Flip-O JavaScript, Flip-O CSS, Flip-O HTML, Flip-O HTML5 Game, Flip-O HTML5 Puzzle, Flip-O HTML5 App, Flip-O HTML5 Logic Game, Flip-O HTML5 Brain Training Game">
   <meta name="author" content="Guillermo Rayas Monroy">
     <title>Flip-O Main Menu</title>
 
@@ -35,9 +35,16 @@
         </header>
 
         <!-- Main Action -->
-         <button type="button" id="tutorial-btn" class="btn btn-primary" aria-haspopup="dialog" data-i18n="tutorial">
-            See Tutorial
-        </button>
+          <button class="btn btn-icon" >
+                <span class="material-symbols-outlined">emoji_events</span>
+                =
+                <div class="stars">
+                    <span class="material-symbols-outlined">star</span>
+                    <span id="stats-stars">0</span>
+                </div>
+            </button>
+
+        
 
         <!-- Level Selection -->
         <section class="level-section">
@@ -93,19 +100,14 @@
 
         <!-- Secondary Actions -->
         <div class="secondary-actions">
-            <button class="btn btn-icon" >
-                <span class="material-symbols-outlined">emoji_events</span>
-                =
-                <div class="stars">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-                    <span id="stats-stars">0</span>
-                </div>
-            </button>
+            <button type="button" id="tutorial-btn" class="btn btn-primary" aria-haspopup="dialog" data-i18n="tutorial">
+            See Tutorial
+        </button>
             <button id="settings-btn" class="btn btn-icon" data-i18n="settings">
                 Settings
             </button>
         </div>
-        <p><span class="material-symbols-outlined">devices</span> v. 1.7 | G R Monroy 2026 </p>
+        <p>💻 v. 1.8 | G R Monroy 2026 </p>
     </div>
 
     <!-- Settings Modal -->

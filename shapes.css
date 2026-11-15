@@ -2,8 +2,8 @@
    Load this AFTER style.css on the pages that use game_shapes.js. */
 
 :root {
-    --shape-dark: #2c2c2c;     /* dark tile colour (navy) */
-    --shape-light: #ffff9f;    /* light tile colour (pale yellow) */
+   --shape-dark: rgb(218, 165, 32);
+    --shape-light: gold;   /* light tile colour (pale yellow) */
 }
 
 /* Board tiles: no tile background, just the shape floating on the board */
@@ -18,22 +18,26 @@
 
 /* The shape itself. A stroke in the same colour softens the star's corners. */
 .shape-svg {
-    width: 95%;
-    height: 95%;
+    width: 100%;
+    height: 100%;
     fill: currentColor;
-    stroke: currentColor;
-    stroke-width: 1.6;
+
+    /* Softer edge */
+    stroke: rgba(255, 255, 255, 0.4);
+    stroke-width: 1.5;
     stroke-linejoin: round;
+
+    /* 3D effect */
+    filter:
+        drop-shadow(0 4px 0 rgba(131, 100, 22, 0.8))
+        drop-shadow(0 2px 0 rgb(56, 48, 0))
+        drop-shadow(0 3px 4px rgba(0,0,0,0.4));
 }
 
 /* The colour belongs to the tile (set from the level letters: upper case = dark, lower case = light) */
 .grid.shapes .tile[data-color="dark"] .tile-face  { color: var(--shape-dark); }
 .grid.shapes .tile[data-color="light"] .tile-face { color: var(--shape-light); }
 
-/* Pale shapes need a hint of shadow to stay visible on the lilac board */
-.grid.shapes .tile[data-color="light"] .shape-svg {
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
-}
 
 /* Only used when FLIP_CHANGES_COLOR is true in game_shapes.js: the star side has the opposite colour */
 .grid.shapes.flip-color .tile[data-color="dark"] .tile-back  { color: var(--shape-light); }
