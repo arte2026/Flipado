@@ -592,6 +592,7 @@ h1 {
 *::-webkit-scrollbar-track {
   background-color: #f8fafc;
   border-radius: 6px;
+  border: 1px solid var(--md-sys-color-on-primary-container); ;
 }
 *::-webkit-scrollbar-track:hover { background-color: #f1f5f9; }
 *::-webkit-scrollbar-track:active { background-color: #e2e8f0; }
@@ -609,7 +610,7 @@ h1 {
 *::-webkit-scrollbar-thumb:active { background-color: var(--md-sys-color-on-primary-container); }
 
 *::-webkit-scrollbar-corner { background-color: #f8fafc; }
-*::-webkit-scrollbar-button { display: none; }
+
 
 /* Firefox: only a thumb and track colour and a width keyword. Kept inside @supports,
    because Chrome and Edge 121+ ignore all the rules above once scrollbar-color is set. */
