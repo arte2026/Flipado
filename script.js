@@ -72,7 +72,6 @@ if (statsBtn) {
 const translations = {
   es: {
    title: "Razonamiento Espacial",
-tutorial: '🎓 Tutorial',
 level: "Selecciona nivel",
 settings: "⚙ Configuración",
 theme: "Selecciona tema",
@@ -114,7 +113,6 @@ mixed: "Paso 1: Haz que todas las columnas tengan la misma forma<br>Paso 2: Haz 
 
   en: {
     title: "Spatial Reasoning Puzzles",
-    tutorial: '🎓 Tutorial',
     level: "Select Level",
     settings: "⚙ Settings",
   	theme: "Select Theme",

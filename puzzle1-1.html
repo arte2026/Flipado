@@ -8,7 +8,7 @@
 
     <title>Level 1-1</title>
     <link rel="icon" type="image/png" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+   
     <link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="desktop.css">
     <link rel="stylesheet" href="chips.css">
@@ -16,9 +16,9 @@
 </head>
 
 <body>
-    <div id="splash">
-        <div class="splash-content">
-            <h1 data-i18n="tuto2">How to Play</h1>
+    <div id="splashModal">
+        <div id="splashImage">
+            <h1 data-i18n="tuto3">How to Play</h1>
             <p data-i18n="puzzle4">Make Every Column One Color</p>
         
     <img src="solution.jpg" alt="Splash Screen">
@@ -28,18 +28,17 @@
 
     <div class="menu-container">
         <header >
-            <a href="index.html" class="btn-back">
-        <span class="material-symbols-outlined">arrow_back</span>
-    </a>
+            <a href="index.html" class="btn-back"> ◀ </a>
             <h3>Flip-O lv. 1-1</h3>
             
         </header>
-        <!-- Add the level selector here -->
-        <p data-i18n="puzzle">Select a puzzle to play</p>
+       
+        <p><span data-i18n="puzzle">Select a puzzle to play</span> - <a href="#" id="showSplash">Tutorial</a></p>
         
     
 
     <main class="game">
+         <!-- Add the level selector here -->
          <div id="level-selector" class="level-selector"></div>
         <div id="grid" class="grid"></div>
 
@@ -265,12 +264,18 @@
     <script src="progress.js"></script>
     <script src="script.js"></script>
     <script>
-const splash = document.getElementById("splash");
-const content = document.getElementById("content");
+const modal = document.getElementById("splashModal");
+const showLink = document.getElementById("showSplash");
 
-splash.addEventListener("click", () => {
-    splash.style.display = "none";
-    content.style.display = "block";
+// Open modal
+showLink.addEventListener("click", function(e) {
+    e.preventDefault();
+    modal.style.display = "flex";
+});
+
+// Close modal when image is clicked
+modal.addEventListener("click", function() {
+    modal.style.display = "none";
 });
 </script>
     <script src="game2.js"></script>
